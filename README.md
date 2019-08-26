@@ -2,7 +2,7 @@
 
 | 模块  | 描述 |端口|
 |---|---|---|
-| alibaba-root  |  服务入口层       | 8080  |
+| alibaba-gateway  |  服务入口层       | 8080  |
 | alibaba-user      | 用户服务      | 8083  |
 | alibaba-user-api  | 用户服务Api   | 无    |
 | alibaba-gift      |  礼物服务     | 8081  |
