@@ -33,11 +33,11 @@ why gateway ? 生产全部服务应该是内网的 所以需要nginx将gateway�
 
 ### nacos配置中心介绍
 
-spring.profiles.active=dev的话默认读取${spring.application.name}.yaml和${spring.application.name}-${spring.profiles.active}.yaml
+spring.profiles.active=dev的话默认读取${spring.application.name}.${file-extension}和${spring.application.name}-${spring.profiles.active}.${file-extension}
 
-刷新配置操作：在需要刷新的类中添加@RefreshScope
+刷新配置操作：在需要刷新的类中添加@RefreshScope 或者 spring.cloud.refresh.enabled=true (默认不需要配置)
 
-* dataId 对应 ${spring.application.name}-${spring.profiles.active}.yaml
+* dataId 对应 ${spring.application.name}-${spring.profiles.active}.${file-extension}
 * groupId 代码中配置对应就行
 * 内容
 
@@ -51,3 +51,31 @@ spring:
 ```
 
 ![详细配置内容](img/nacos-config.png)
+
+#### 配置的优先级
+
+Spring Cloud Alibaba Nacos Config 目前提供了三种配置能力从 Nacos 拉取相关的配置。
+
+* A: 通过 spring.cloud.nacos.config.shared-dataids 支持多个共享 Data Id 的配置
+
+```java
+spring.cloud.nacos.config.shared-dataids=bootstrap-common.properties,all-common.properties
+spring.cloud.nacos.config.refreshable-dataids=bootstrap-common.properties
+```
+
+* B: 通过 spring.cloud.nacos.config.ext-config[n].data-id 的方式支持多个扩展 Data Id 的配置
+
+```
+Data Id 既不在默认的组，也支持动态刷新
+spring.cloud.nacos.config.ext-config[0].data-id=ext-config-common03.properties
+spring.cloud.nacos.config.ext-config[0].group=REFRESH_GROUP
+spring.cloud.nacos.config.ext-config[0].refresh=true
+```
+
+* C: 通过内部相关规则(应用名、应用名+ Profile )自动生成相关的 Data Id 配置
+
+```java
+${spring.application.name}-${profile}.${file-extension:properties}
+```
+
+当三种方式共同使用时，他们的一个优先级关系是:A < B < C

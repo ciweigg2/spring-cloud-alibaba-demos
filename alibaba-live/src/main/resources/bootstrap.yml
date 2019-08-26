@@ -9,3 +9,6 @@ spring:
         # nacos配置扩展类型为yaml
         file-extension: yaml
         group: alibaba
+      discovery:
+        #nacos注册中心
+        server-addr: 115.220.10.37:8848

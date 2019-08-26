@@ -1,6 +1,7 @@
 package com.ciwei.user.controller;
 
 import com.ciwei.common.utils.ResponseMessage;
+import com.ciwei.user.properties.UserProperties;
 import com.ciwei.user.feign.gift.GiftClient;
 import com.ciwei.user.user.model.AlibabaUser;
 import com.ciwei.user.user.service.AlibabaUserService;
@@ -26,6 +27,9 @@ public class UserController {
 
     @Autowired
     private GiftClient giftClient;
+
+    @Autowired
+    private UserProperties userProperties;
 
     @RequestMapping(value = "/selectAlibabaUsers")
     public ResponseMessage<List<AlibabaUser>> selectAlibabaGifts() {

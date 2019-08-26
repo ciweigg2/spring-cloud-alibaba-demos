@@ -1,7 +1,7 @@
 spring:
   application:
     #模块名
-    name: alibaba-live-provider
+    name: alibaba-user-provider
   cloud:
     nacos:
       config:
@@ -9,3 +9,14 @@ spring:
         # nacos配置扩展类型为yaml
         file-extension: yaml
         group: alibaba
+        # 自定义扩展的dataId配置
+        ext-config:
+          - data-id: users.properties
+            group: alibaba
+            refresh: true
+        # 多个应用间配置共享的 Data Id
+        shared-dataids: alibaba-common.yaml
+        refreshable-dataids: alibaba-common.yaml
+      discovery:
+        #nacos注册中心
+        server-addr: 115.220.10.37:8848
