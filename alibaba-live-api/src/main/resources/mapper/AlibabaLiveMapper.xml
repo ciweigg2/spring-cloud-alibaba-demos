@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ciwei.live.live.mapper.AlibabaLiveMapper">
+  <resultMap id="BaseResultMap" type="com.ciwei.live.live.model.AlibabaLive">
+    <!--@mbg.generated-->
+    <id column="live_id" property="liveId" />
+    <result column="live_name" property="liveName" />
+    <result column="create_time" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    live_id, live_name, create_time
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update alibaba_live
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="live_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when live_id = #{item.liveId} then #{item.liveName}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when live_id = #{item.liveId} then #{item.createTime}
+        </foreach>
+      </trim>
+    </trim>
+    where live_id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.liveId}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into alibaba_live
+    (live_id, live_name, create_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.liveId}, #{item.liveName}, #{item.createTime})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" parameterType="com.ciwei.live.live.model.AlibabaLive">
+    <!--@mbg.generated-->
+    insert into alibaba_live
+    (live_id, live_name, create_time)
+    values
+    (#{liveId}, #{liveName}, #{createTime})
+    on duplicate key update 
+    live_id = #{liveId}, 
+    live_name = #{liveName}, 
+    create_time = #{createTime}
+  </insert>
+  <insert id="insertOrUpdateSelective" parameterType="com.ciwei.live.live.model.AlibabaLive">
+    <!--@mbg.generated-->
+    insert into alibaba_live
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="liveId != null">
+        live_id,
+      </if>
+      <if test="liveName != null">
+        live_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="liveId != null">
+        #{liveId},
+      </if>
+      <if test="liveName != null">
+        #{liveName},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="liveId != null">
+        live_id = #{liveId},
+      </if>
+      <if test="liveName != null">
+        live_name = #{liveName},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime},
+      </if>
+    </trim>
+  </insert>
+</mapper>

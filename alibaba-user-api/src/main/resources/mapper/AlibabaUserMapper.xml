@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ciwei.user.user.mapper.AlibabaUserMapper">
+  <resultMap id="BaseResultMap" type="com.ciwei.user.user.model.AlibabaUser">
+    <!--@mbg.generated-->
+    <id column="user_id" property="userId" />
+    <result column="user_name" property="userName" />
+    <result column="create_time" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    user_id, user_name, create_time
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update alibaba_user
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="user_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when user_id = #{item.userId} then #{item.userName}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when user_id = #{item.userId} then #{item.createTime}
+        </foreach>
+      </trim>
+    </trim>
+    where user_id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.userId}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into alibaba_user
+    (user_id, user_name, create_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.userId}, #{item.userName}, #{item.createTime})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" parameterType="com.ciwei.user.user.model.AlibabaUser">
+    <!--@mbg.generated-->
+    insert into alibaba_user
+    (user_id, user_name, create_time)
+    values
+    (#{userId}, #{userName}, #{createTime})
+    on duplicate key update 
+    user_id = #{userId}, 
+    user_name = #{userName}, 
+    create_time = #{createTime}
+  </insert>
+  <insert id="insertOrUpdateSelective" parameterType="com.ciwei.user.user.model.AlibabaUser">
+    <!--@mbg.generated-->
+    insert into alibaba_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId},
+      </if>
+      <if test="userName != null">
+        #{userName},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="userId != null">
+        user_id = #{userId},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime},
+      </if>
+    </trim>
+  </insert>
+</mapper>
