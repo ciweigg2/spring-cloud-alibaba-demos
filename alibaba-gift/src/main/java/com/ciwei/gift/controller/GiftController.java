@@ -4,6 +4,7 @@ import com.ciwei.common.utils.ResponseMessage;
 import com.ciwei.gift.gift.model.AlibabaGift;
 import com.ciwei.gift.gift.service.AlibabaGiftService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class GiftController {
     @Autowired
     private AlibabaGiftService alibabaGiftService;
 
-    @RequestMapping(value = "/selectAlibabaGifts")
+    @GetMapping(value = "/selectAlibabaGifts")
     public ResponseMessage<List<AlibabaGift>> selectAlibabaGifts() throws Exception {
         return ResponseMessage.success(alibabaGiftService.query().list());
     }

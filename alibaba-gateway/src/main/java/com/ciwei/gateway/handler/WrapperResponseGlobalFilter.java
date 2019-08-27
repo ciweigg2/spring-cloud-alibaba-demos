@@ -10,7 +10,6 @@ import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.core.io.buffer.DataBufferUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
 import org.springframework.stereotype.Component;
@@ -52,6 +51,10 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
                         DataBufferUtils.release(dataBuffer);
                         String s = new String(content, Charset.forName("UTF-8"));
                         ResponseMessage responseMessage = new ResponseMessage();
+                        if(s.contains("swagger2")){
+                        	//swagger2文档特殊处理
+							return bufferFactory.wrap(s.getBytes());
+						}
                         JSONObject jsonObject = JSONObject.parseObject(s);
                         if (jsonObject.getString("msg") != null) {
                             //根据返回的格式判断是否是应用返回的
