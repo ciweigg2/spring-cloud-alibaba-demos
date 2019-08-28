@@ -19,11 +19,11 @@
             <version>0.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.ciwei</groupId>
-            <artifactId>alibaba-gift-api</artifactId>
-            <version>0.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.ciwei</groupId>-->
+<!--            <artifactId>alibaba-gift-api</artifactId>-->
+<!--            <version>0.1</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -46,18 +46,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-
-        <!-- swagger -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-        </dependency>
-
-        <!-- swagger-ui -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
     </dependencies>
 
