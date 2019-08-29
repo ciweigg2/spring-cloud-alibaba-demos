@@ -1,8 +1,8 @@
 package com.ciwei.user.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ciwei.common.utils.MyIPage;
 import com.ciwei.common.utils.ResponseMessage;
 import com.ciwei.user.feign.gift.GiftClient;
 import com.ciwei.user.properties.UserProperties;
@@ -53,15 +53,16 @@ public class UserController {
      * @author 如果没有你
      * @date 2019/8/29 17:03
      * @description 分页查询用户信息
-     * @param page: 分页查询条件 {"current":"1","size":"2","object":{}}
-     * @return {@link ResponseMessage< IPage< List< AlibabaUser>>>}
+     * @param mybatisPlusPage: 分页查询条件 {"current":"1","size":"2","object":{}}
+     * @return {@link ResponseMessage< MyIPage< AlibabaUser>>}
      **/
     @PostMapping(value = "/selectAlibabaUsersPage")
-    public ResponseMessage<Page<AlibabaUser>> selectAlibabaUsersPage(@RequestBody MybatisPlusPage<AlibabaUser> page) {
+    public ResponseMessage<MyIPage<AlibabaUser>> selectAlibabaUsersPage(@RequestBody MybatisPlusPage<AlibabaUser> mybatisPlusPage) {
         QueryWrapper<AlibabaUser> wrapper = new QueryWrapper();
         //根据不为空的字段查询
-        wrapper.setEntity(page.getObject());
-        return ResponseMessage.success(alibabaUserService.page(page ,wrapper));
+        wrapper.setEntity(mybatisPlusPage.getObject());
+        Page<AlibabaUser> page = new Page<>(mybatisPlusPage.getCurrent() ,mybatisPlusPage.getSize());
+        return ResponseMessage.success(alibabaUserService.page(page,wrapper));
     }
 
 }

@@ -1,6 +1,5 @@
 package com.ciwei.user.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,11 +11,21 @@ import java.io.Serializable;
  * @desc 封装mybatisplus分页
  */
 @Data
-public class MybatisPlusPage<T> extends Page<T> implements Serializable {
+public class MybatisPlusPage<T> implements Serializable {
 
     /**
      * 对象
      */
     private T object;
+
+    /**
+     * 每页条数
+     */
+    private long size;
+
+    /**
+     * 当前页数
+     */
+    private long current;
 
 }
