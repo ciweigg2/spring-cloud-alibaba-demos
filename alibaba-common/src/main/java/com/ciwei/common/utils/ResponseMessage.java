@@ -12,10 +12,19 @@ import java.io.Serializable;
 @Data
 public final class ResponseMessage<T> implements Serializable {
 
+    /**
+     * 状态码
+     */
     private String code;
 
+    /**
+     * 错误信息
+     */
     private String msg;
 
+    /**
+     * 数据
+     */
     public T data;
 
     private static final String CODE_SUCCESS = "200";
