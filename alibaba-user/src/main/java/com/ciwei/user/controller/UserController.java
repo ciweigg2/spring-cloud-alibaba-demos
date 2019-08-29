@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @NAME GiftController
+ * @NAME UserController
  * @USER Ciwei
  * @DATE 2019/8/26/026 11:02
  * @menu 用户服务接口

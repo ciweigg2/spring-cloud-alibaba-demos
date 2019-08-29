@@ -30,6 +30,8 @@ why gateway ? 生产全部服务应该是内网的 所以需要nginx将gateway�
 * Lombok
 * MyBatisCodeHelperPro(mybatis plus generator)
 * docker-compose(服务编排暂未做实现)
+* YapiUpload(注释生成yapi文档)
+* yapi
 
 ### nacos配置中心介绍
 
@@ -79,3 +81,32 @@ ${spring.application.name}-${profile}.${file-extension:properties}
 ```
 
 当三种方式共同使用时，他们的一个优先级关系是:A < B < C
+
+### yapi文档
+
+使用YapiUpload插件根据规范的javadoc注释生成文档
+
+工具使用参考我的博客
+
+类级别分类注释
+
+```java
+/**
+ * @NAME UserController
+ * @USER Ciwei
+ * @DATE 2019/8/26/026 11:02
+ * @menu 礼物服务接口
+ **/
+```
+
+方法级别注释：
+
+```java
+/**
+ * @author 如果没有你
+ * @date 2019/8/29 16:01
+ * @description 查询所有用户
+ * @param alibabaUser: 用户查询条件
+ * @return {@link ResponseMessage< List< AlibabaUser>>}
+ **/
+```
