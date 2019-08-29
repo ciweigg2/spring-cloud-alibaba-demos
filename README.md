@@ -84,7 +84,7 @@ ${spring.application.name}-${profile}.${file-extension:properties}
 
 ### yapi文档
 
-使用YapiUpload插件根据规范的javadoc注释生成文档
+使用YapiUpload(该项目需要使用多模块配置)插件根据规范的javadoc注释生成文档
 
 工具使用参考我的博客
 

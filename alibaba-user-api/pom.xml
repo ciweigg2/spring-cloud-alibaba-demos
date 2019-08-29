@@ -32,10 +32,10 @@
             <version>2.1.0</version>
         </dependency>
         <!-- mybatis-plus end -->
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 

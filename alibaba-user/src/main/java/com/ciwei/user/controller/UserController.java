@@ -1,5 +1,8 @@
 package com.ciwei.user.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ciwei.common.utils.ResponseMessage;
 import com.ciwei.user.feign.gift.GiftClient;
 import com.ciwei.user.properties.UserProperties;
@@ -7,7 +10,10 @@ import com.ciwei.user.user.model.AlibabaUser;
 import com.ciwei.user.user.service.AlibabaUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -41,6 +47,21 @@ public class UserController {
     @PostMapping(value = "/selectAlibabaUsers")
     public ResponseMessage<List<AlibabaUser>> selectAlibabaGifts(@RequestBody AlibabaUser alibabaUser) {
         return ResponseMessage.success(alibabaUserService.query().list());
+    }
+
+    /**
+     * @author 如果没有你
+     * @date 2019/8/29 17:03
+     * @description 分页查询用户信息
+     * @param page: 分页查询条件 {"current":"1","size":"2","object":{}}
+     * @return {@link ResponseMessage< IPage< List< AlibabaUser>>>}
+     **/
+    @PostMapping(value = "/selectAlibabaUsersPage")
+    public ResponseMessage<Page<AlibabaUser>> selectAlibabaUsersPage(@RequestBody MybatisPlusPage<AlibabaUser> page) {
+        QueryWrapper<AlibabaUser> wrapper = new QueryWrapper();
+        //根据不为空的字段查询
+        wrapper.setEntity(page.getObject());
+        return ResponseMessage.success(alibabaUserService.page(page ,wrapper));
     }
 
 }
