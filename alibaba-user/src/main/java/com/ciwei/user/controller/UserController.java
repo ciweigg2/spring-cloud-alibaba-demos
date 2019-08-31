@@ -42,6 +42,8 @@ public class UserController {
      * @date 2019/8/29 16:01
      * @description 查询所有用户
      * @param alibabaUser: 用户查询条件
+     * @status 已发布
+     * @menu 用户服务接口/查询所有用户
      * @return {@link ResponseMessage< List< AlibabaUser>>}
      **/
     @PostMapping(value = "/selectAlibabaUsers")
@@ -54,6 +56,8 @@ public class UserController {
      * @date 2019/8/29 17:03
      * @description 分页查询用户信息
      * @param mybatisPlusPage: 分页查询条件 {"current":"1","size":"2","object":{}}
+     * @status 开发中
+     * @menu 用户服务接口/分页查询用户信息
      * @return {@link ResponseMessage< MyIPage< AlibabaUser>>}
      **/
     @PostMapping(value = "/selectAlibabaUsersPage")

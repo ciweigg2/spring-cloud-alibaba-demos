@@ -86,6 +86,22 @@ ${spring.application.name}-${profile}.${file-extension:properties}
 
 使用YapiUpload(该项目需要使用多模块配置)插件根据规范的javadoc注释生成文档
 
+YapiUpload配置例子(.idea->misc.xml)：
+
+```
+<component name="yapi">
+  <option name="moduleList">moduleName1,moduleName2</option>
+</component>
+
+<component name="moduleName1">
+  <option name="moduleName1.Token">yapi中项目token</option>
+  <option name="moduleName1.Id">yapi中项目id</option>
+  <option name="moduleName1.Url">http://127.0.0.1:3000</option>
+  <option name="moduleName1.Type">api</option>
+  <option name="moduleName1.AttachUploadUrl">http://localhost/fileupload</option>
+</component>
+```
+
 工具使用参考我的博客
 
 类级别分类注释
