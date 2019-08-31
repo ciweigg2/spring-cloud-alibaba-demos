@@ -31,7 +31,7 @@ why gateway ? 生产全部服务应该是内网的 所以需要nginx将gateway�
 * MyBatisCodeHelperPro(mybatis plus generator)
 * docker-compose(服务编排暂未做实现)
 * YapiUpload(注释生成yapi文档)
-* yapi
+* yapi [crazy-api个性化定制](https://github.com/xian-crazy/yapi)
 
 ### nacos配置中心介绍
 
