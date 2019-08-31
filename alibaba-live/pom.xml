@@ -16,7 +16,6 @@
         <dependency>
             <groupId>com.ciwei</groupId>
             <artifactId>alibaba-live-api</artifactId>
-            <version>0.1</version>
         </dependency>
 
         <dependency>
