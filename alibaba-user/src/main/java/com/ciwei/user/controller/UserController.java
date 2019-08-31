@@ -3,7 +3,9 @@ package com.ciwei.user.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ciwei.common.utils.MyIPage;
+import com.ciwei.common.utils.MybatisPlusPage;
 import com.ciwei.common.utils.ResponseMessage;
+import com.ciwei.gift.gift.model.AlibabaGift;
 import com.ciwei.user.feign.gift.GiftClient;
 import com.ciwei.user.properties.UserProperties;
 import com.ciwei.user.user.model.AlibabaUser;
@@ -21,7 +23,7 @@ import java.util.List;
  * @NAME UserController
  * @USER Ciwei
  * @DATE 2019/8/26/026 11:02
- * @menu 用户服务接口
+ * @menu 用户服务模块
  **/
 @RestController
 @RequestMapping(value = "/user")
@@ -43,11 +45,14 @@ public class UserController {
      * @description 查询所有用户
      * @param alibabaUser: 用户查询条件
      * @status 已发布
-     * @menu 用户服务接口/查询所有用户
+     * @menu 用户服务模块/用户相关接口
      * @return {@link ResponseMessage< List< AlibabaUser>>}
      **/
     @PostMapping(value = "/selectAlibabaUsers")
     public ResponseMessage<List<AlibabaUser>> selectAlibabaGifts(@RequestBody AlibabaUser alibabaUser) {
+        AlibabaGift alibabaGift = new AlibabaGift();
+        alibabaGift.setGiftId(1L);
+        giftClient.selectAlibabaGiftByIdGiftId(alibabaGift);
         return ResponseMessage.success(alibabaUserService.query().list());
     }
 
@@ -57,7 +62,7 @@ public class UserController {
      * @description 分页查询用户信息
      * @param mybatisPlusPage: 分页查询条件 {"current":"1","size":"2","object":{}}
      * @status 开发中
-     * @menu 用户服务接口/分页查询用户信息
+     * @menu 用户服务模块/用户相关接口
      * @return {@link ResponseMessage< MyIPage< AlibabaUser>>}
      **/
     @PostMapping(value = "/selectAlibabaUsersPage")

@@ -20,20 +20,3 @@ spring:
       discovery:
         #nacos注册中心
         server-addr: 115.220.10.37:8848
-
-batman:
-  swagger:
-    title: api manage RESTful Content APIs
-    description: <font color="red">接口文档</font>
-    version: 1.0
-    modules:
-      - {
-        model-name: alibaba-gift, #模块名称
-        packages: ["com.ciwei.gift.controller"], #扫描的包路径
-        group-name: 礼物服务  #分组名称
-      }
-      - {
-        model-name: alibaba-user,
-        packages: ["com.ciwei.user.controller"],
-        group-name: 用户服务
-      }

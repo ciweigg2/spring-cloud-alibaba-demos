@@ -1,4 +1,4 @@
-package com.ciwei.user.controller;
+package com.ciwei.common.utils;
 
 import lombok.Data;
 

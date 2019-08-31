@@ -1,7 +1,12 @@
 package com.ciwei.user.feign.gift;
 
 import com.ciwei.common.utils.ResponseMessage;
+import com.ciwei.gift.gift.model.AlibabaGift;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -12,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient("alibaba-gift-provider")
 public interface GiftClient {
 
-    @RequestMapping(value = "/gift/selectAlibabaGifts")
+    @PostMapping(value = "/gift/selectAlibabaGifts")
     ResponseMessage selectAlibabaGifts();
+
+    @GetMapping(value = "/gift/selectAlibabaGiftByIdGiftId")
+    ResponseMessage<AlibabaGift> selectAlibabaGiftByIdGiftId(@SpringQueryMap AlibabaGift alibabaGift);
 
 }
