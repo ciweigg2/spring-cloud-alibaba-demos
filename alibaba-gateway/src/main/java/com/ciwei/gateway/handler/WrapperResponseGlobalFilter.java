@@ -51,10 +51,6 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
                         DataBufferUtils.release(dataBuffer);
                         String s = new String(content, Charset.forName("UTF-8"));
                         ResponseMessage responseMessage = new ResponseMessage();
-                        if(s.contains("swagger2")){
-                        	//swagger2文档特殊处理
-							return bufferFactory.wrap(s.getBytes());
-						}
                         JSONObject jsonObject = JSONObject.parseObject(s);
                         if (jsonObject.getString("msg") != null) {
                             //根据返回的格式判断是否是应用返回的
