@@ -34,14 +34,6 @@
         <mybatis-spring-boot-starter.version>2.1.0</mybatis-spring-boot-starter.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
