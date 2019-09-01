@@ -1,8 +1,10 @@
 package com.ciwei.gift.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.ciwei.common.request.GetAlibabaGiftByUserIdRequest;
 import com.ciwei.common.utils.ResponseMessage;
-import com.ciwei.gift.gift.model.AlibabaGift;
-import com.ciwei.gift.gift.service.AlibabaGiftService;
+import com.ciwei.gift.mybatis.model.AlibabaGift;
+import com.ciwei.gift.mybatis.service.AlibabaGiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +49,24 @@ public class GiftController {
     @GetMapping(value = "/selectAlibabaGiftByIdGiftId")
     public ResponseMessage<AlibabaGift> selectAlibabaGiftByIdGiftId(AlibabaGift alibabaGift) {
         return ResponseMessage.success(alibabaGiftService.getById(alibabaGift.getGiftId()));
+    }
+
+    /**
+     * @author 如果没有你
+     * @date 2019/9/01 19:13
+     * @description 根据userId查询礼物列表
+     * @param getAlibabaGiftByUserIdRequest: userId
+     * @status 已发布
+     * @menu 礼物服务模块/RPC
+     * @return {@link ResponseMessage<AlibabaGift>}
+     **/
+    @GetMapping(value = "/getAlibabaGiftByUserId")
+    public List<AlibabaGift> getAlibabaGiftByUserId(GetAlibabaGiftByUserIdRequest getAlibabaGiftByUserIdRequest) {
+        AlibabaGift alibabaGift = new AlibabaGift();
+        alibabaGift.setUserId(getAlibabaGiftByUserIdRequest.getUserId());
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.setEntity(alibabaGift);
+        return alibabaGiftService.getBaseMapper().selectList(queryWrapper);
     }
 
 }

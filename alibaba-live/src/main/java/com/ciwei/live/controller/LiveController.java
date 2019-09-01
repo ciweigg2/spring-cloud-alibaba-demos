@@ -1,8 +1,8 @@
 package com.ciwei.live.controller;
 
 import com.ciwei.common.utils.ResponseMessage;
-import com.ciwei.live.live.model.AlibabaLive;
-import com.ciwei.live.live.service.AlibabaLiveService;
+import com.ciwei.live.mybatis.model.AlibabaLive;
+import com.ciwei.live.mybatis.service.AlibabaLiveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

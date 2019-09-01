@@ -17,4 +17,13 @@ public class AlibabaUserSpringBootApplication {
         SpringApplication.run(AlibabaUserSpringBootApplication.class, args);
     }
 
+//    @Bean
+//    public ObjectMapper objectMapper(){
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        objectMapper.setDateFormat(dateFormat);
+//        return objectMapper;
+//    }
+
 }

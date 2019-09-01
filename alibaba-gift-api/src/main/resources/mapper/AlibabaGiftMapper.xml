@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ciwei.gift.gift.mapper.AlibabaGiftMapper">
-  <resultMap id="BaseResultMap" type="com.ciwei.gift.gift.model.AlibabaGift">
+<mapper namespace="com.ciwei.gift.mybatis.mapper.AlibabaGiftMapper">
+  <resultMap id="BaseResultMap" type="com.ciwei.gift.mybatis.model.AlibabaGift">
     <!--@mbg.generated-->
     <id column="gift_id" property="giftId" />
     <result column="gift_name" property="giftName" />
+    <result column="user_id" property="userId" />
     <result column="create_time" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    gift_id, gift_name, create_time
+    gift_id, gift_name, user_id, create_time
   </sql>
   <update id="updateBatch" parameterType="java.util.List">
     <!--@mbg.generated-->
@@ -18,6 +19,11 @@
       <trim prefix="gift_name = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
           when gift_id = #{item.giftId} then #{item.giftName}
+        </foreach>
+      </trim>
+      <trim prefix="user_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when gift_id = #{item.giftId} then #{item.userId}
         </foreach>
       </trim>
       <trim prefix="create_time = case" suffix="end,">
@@ -34,24 +40,25 @@
   <insert id="batchInsert" parameterType="map">
     <!--@mbg.generated-->
     insert into alibaba_gift
-    (gift_id, gift_name, create_time)
+    (gift_id, gift_name, user_id, create_time)
     values
     <foreach collection="list" item="item" separator=",">
-      (#{item.giftId}, #{item.giftName}, #{item.createTime})
+      (#{item.giftId}, #{item.giftName}, #{item.userId}, #{item.createTime})
     </foreach>
   </insert>
-  <insert id="insertOrUpdate" parameterType="com.ciwei.gift.gift.model.AlibabaGift">
+  <insert id="insertOrUpdate" parameterType="com.ciwei.gift.mybatis.model.AlibabaGift">
     <!--@mbg.generated-->
     insert into alibaba_gift
-    (gift_id, gift_name, create_time)
+    (gift_id, gift_name, user_id, create_time)
     values
-    (#{giftId}, #{giftName}, #{createTime})
+    (#{giftId}, #{giftName}, #{userId}, #{createTime})
     on duplicate key update 
     gift_id = #{giftId}, 
     gift_name = #{giftName}, 
+    user_id = #{userId}, 
     create_time = #{createTime}
   </insert>
-  <insert id="insertOrUpdateSelective" parameterType="com.ciwei.gift.gift.model.AlibabaGift">
+  <insert id="insertOrUpdateSelective" parameterType="com.ciwei.gift.mybatis.model.AlibabaGift">
     <!--@mbg.generated-->
     insert into alibaba_gift
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -60,6 +67,9 @@
       </if>
       <if test="giftName != null">
         gift_name,
+      </if>
+      <if test="userId != null">
+        user_id,
       </if>
       <if test="createTime != null">
         create_time,
@@ -73,6 +83,9 @@
       <if test="giftName != null">
         #{giftName},
       </if>
+      <if test="userId != null">
+        #{userId},
+      </if>
       <if test="createTime != null">
         #{createTime},
       </if>
@@ -84,6 +97,9 @@
       </if>
       <if test="giftName != null">
         gift_name = #{giftName},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId},
       </if>
       <if test="createTime != null">
         create_time = #{createTime},
