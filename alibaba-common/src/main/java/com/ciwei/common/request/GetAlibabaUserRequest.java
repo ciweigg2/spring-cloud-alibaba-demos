@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @NAME SelectAlibabaUsersRequest
@@ -18,5 +19,9 @@ public class GetAlibabaUserRequest implements Serializable {
 	@Getter
 	@Setter
 	private Long userId;
+
+	@Getter
+	@Setter
+	private Date createTime;
 
 }
