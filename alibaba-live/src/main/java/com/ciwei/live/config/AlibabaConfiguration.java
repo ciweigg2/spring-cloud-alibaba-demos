@@ -23,7 +23,7 @@ import java.util.List;
 public class AlibabaConfiguration {
 
     /**
-     * 配置消息转换器
+     * 配置消息转换器 使用fastjson替代默认jackson
      * new HttpMessageConverters(true, converters);
      * 一定要设为true才能替换否则不会替换
      * @return 返回一个消息转换的bean
