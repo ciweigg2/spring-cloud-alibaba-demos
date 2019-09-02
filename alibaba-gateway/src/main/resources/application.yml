@@ -28,6 +28,9 @@ spring:
             - Path=/api/user/**
           filters:
             - StripPrefix=1
+      # 统一格式返回
+      default-filters:
+        - ResponseMessage
       discovery:
         locator:
           lower-case-service-id: true
