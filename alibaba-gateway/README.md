@@ -1,60 +1,30 @@
 nacos动态规则
 
-* dataId：gateway-router
+* alibaba-gateway-consumer.yaml
 
 * group：alibaba
 
 ```
-{
-	"refreshGatewayRoute": true,
-	"routeList": [{
-		"id": "gift_route",
-		"order": 0,
-		"predicates": [{
-			"args": {
-				"pattern": "/api/gift/**"
-			},
-			"name": "Path"
-		}],
-		"filters": [{
-			"args": {
-				"pattern": "1"
-			},
-			"name": "StripPrefix"
-		}],
-		"uri": "lb://alibaba-gift-provider"
-	}, {
-		"id": "live_route",
-		"order": 2,
-		"predicates": [{
-			"args": {
-				"pattern": "/api/live/**"
-			},
-			"name": "Path"
-		}],
-		"filters": [{
-			"args": {
-				"pattern": "1"
-			},
-			"name": "StripPrefix"
-		}],
-		"uri": "lb://alibaba-live-provider"
-	}, {
-		"id": "user_route",
-		"order": 3,
-		"predicates": [{
-			"args": {
-				"pattern": "/api/user/**"
-			},
-			"name": "Path"
-		}],
-		"filters": [{
-			"args": {
-				"pattern": "1"
-			},
-			"name": "StripPrefix"
-		}],
-		"uri": "lb://alibaba-user-provider"
-	}]
-}
+spring:
+  cloud:
+    gateway:
+     routes:
+       - id: gift_route
+         uri: lb://alibaba-gift-provider
+         predicates:
+           - Path=/api/gift/**
+         filters:
+           - StripPrefix=1
+       - id: live_route
+         uri: lb://alibaba-live-provider
+         predicates:
+           - Path=/api/live/**
+         filters:
+           - StripPrefix=1
+       - id: user_route
+         uri: lb://alibaba-user-provider
+         predicates:
+           - Path=/api/user/**
+         filters:
+           - StripPrefix=1
 ```

@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    gateway:
+      # 统一格式返回
+      default-filters:
+        - ResponseMessage
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      routes:
+        - id: gift_route
+          uri: lb://alibaba-gift-provider
+          predicates:
+            - Path=/api/gift/**
+          filters:
+            - StripPrefix=1
+        - id: live_route
+          uri: lb://alibaba-live-provider
+          predicates:
+            - Path=/api/live/**
+          filters:
+            - StripPrefix=1
+        - id: user_route
+          uri: lb://alibaba-user-provider
+          predicates:
+            - Path=/api/user/**
+          filters:
+            - StripPrefix=1

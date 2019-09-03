@@ -18,6 +18,12 @@
             <artifactId>alibaba-common</artifactId>
         </dependency>
 
+        <!--        Spring Cloud alibaba Nacos Config-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
         <!--        Spring Cloud GateWay-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
