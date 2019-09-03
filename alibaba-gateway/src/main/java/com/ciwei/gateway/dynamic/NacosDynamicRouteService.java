@@ -13,10 +13,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.scope.refresh.RefreshScope;
+import org.springframework.cloud.gateway.config.GatewayProperties;
+import org.springframework.cloud.gateway.config.PropertiesRouteDefinitionLocator;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
+import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
+import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
@@ -58,6 +63,21 @@ public class NacosDynamicRouteService implements ApplicationEventPublisherAware 
 
     private ApplicationEventPublisher applicationEventPublisher;
 
+    @Autowired
+    private RouteDefinitionRepository routeDefinitionRepository;
+
+    @Autowired
+    private RefreshScope refreshScope;
+
+    @Autowired
+    private GatewayProperties gatewayProperties;
+
+    @org.springframework.cloud.context.config.annotation.RefreshScope
+    @Bean
+    public RouteDefinitionLocator routeDefinitionLocator(){
+        return new PropertiesRouteDefinitionLocator(gatewayProperties);
+    }
+
     @Bean
     public void refreshRouting() throws NacosException {
         Properties properties = new Properties();
@@ -71,6 +91,8 @@ public class NacosDynamicRouteService implements ApplicationEventPublisherAware 
 
             @Override
             public void receiveConfigInfo(String configInfo) {
+                refreshScope.refresh("routeDefinitionLocator");
+
                 log.info(configInfo);
 
                 boolean refreshGatewayRoute = JSONObject.parseObject(configInfo).getBoolean("refreshGatewayRoute");
