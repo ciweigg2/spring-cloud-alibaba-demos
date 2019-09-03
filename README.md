@@ -137,10 +137,14 @@ YapiUpload配置例子(.idea->misc.xml)：
 
 ### 动态路由
 
-根据Spring Cloud alibaba Nacos Config的动态刷新特性自动刷新
+根据Spring Cloud alibaba Nacos Config的动态刷新特性自动刷新Bean和配置
 
 首先会读取Nacos配置中心配置的dataId为alibaba-gateway-consumer.yaml的配置规则
 
 如果没有读取到会读取本地application.yml的配置规则 都存在的话Nacos配置中心的配置会覆盖本地的配置
 
 [Nacos配置参考](alibaba-gateway/README.md)
+
+### 动态数据源
+
+和动态路由原理一样 只需要在Nacos配置中心配置 更新配置会自动刷新bean和配置
