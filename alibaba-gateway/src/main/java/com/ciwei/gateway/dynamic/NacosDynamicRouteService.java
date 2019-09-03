@@ -7,8 +7,11 @@ import com.alibaba.nacos.api.PropertyKeyConst;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.config.listener.Listener;
 import com.alibaba.nacos.api.exception.NacosException;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
@@ -39,8 +42,16 @@ import java.util.concurrent.Executor;
 @Slf4j
 public class NacosDynamicRouteService implements ApplicationEventPublisherAware {
 
-    private static final String DATA_ID = "gateway-router.json";
-    private static final String Group = "alibaba";
+    @Getter
+    @Setter
+    private String dataId;
+
+    @Getter
+    @Setter
+    private String group;
+
+    @Value("${spring.cloud.nacos.discovery.server-addr}")
+    private String serverAddr;
 
     @Autowired
     private RouteDefinitionWriter routeDefinitionWriter;
@@ -50,10 +61,9 @@ public class NacosDynamicRouteService implements ApplicationEventPublisherAware 
     @Bean
     public void refreshRouting() throws NacosException {
         Properties properties = new Properties();
-        properties.put(PropertyKeyConst.SERVER_ADDR, "114.67.104.142:8848");
-//        properties.put(PropertyKeyConst.NAMESPACE, "8282c713-da90-486a-8438-2a5a212ef44f");
+        properties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
         ConfigService configService = NacosFactory.createConfigService(properties);
-        configService.addListener(DATA_ID, Group, new Listener() {
+        configService.addListener(dataId, group, new Listener() {
             @Override
             public Executor getExecutor() {
                 return null;
@@ -72,7 +82,7 @@ public class NacosDynamicRouteService implements ApplicationEventPublisherAware 
                         update(assembleRouteDefinition(route));
                     }
                 } else {
-                    log.info("路由未发生变更");
+                    log.info("路由状态关闭 不加载路由信息 enjoy itl;");
                 }
             }
         });
@@ -93,7 +103,6 @@ public class NacosDynamicRouteService implements ApplicationEventPublisherAware 
 
         try {
             this.routeDefinitionWriter.delete(Mono.just(routeDefinition.getId()));
-            log.info("路由更新成功");
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -101,7 +110,7 @@ public class NacosDynamicRouteService implements ApplicationEventPublisherAware 
         try {
             routeDefinitionWriter.save(Mono.just(routeDefinition)).subscribe();
             this.applicationEventPublisher.publishEvent(new RefreshRoutesEvent(this));
-            log.info("路由更新成功");
+            log.info("更新路由规则：{}" ,routeDefinition.getId());
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }

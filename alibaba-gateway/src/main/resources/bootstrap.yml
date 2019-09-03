@@ -39,5 +39,5 @@ spring:
 nacos:
   dynamic:
     route:
-      data-id: gateway-router
+      data-id: gateway-router.json
       group: alibaba
