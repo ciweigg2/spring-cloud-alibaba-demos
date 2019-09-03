@@ -1,0 +1,43 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: alibaba-gateway-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 114.67.104.142:8848
+    gateway:
+#      routes:
+#        - id: gift_route
+#          uri: lb://alibaba-gift-provider
+#          predicates:
+#            - Path=/api/gift/** #访问网关需要带api
+#          filters:
+#            - StripPrefix=1 # 去掉第一个路径/api真正的请求地址是/gift/**
+#        - id: live_route
+#          uri: lb://alibaba-live-provider
+#          predicates:
+#            - Path=/api/live/**
+#          filters:
+#            - StripPrefix=1
+#        - id: user_route
+#          uri: lb://alibaba-user-provider
+#          predicates:
+#            - Path=/api/user/**
+#          filters:
+#            - StripPrefix=1
+      # 统一格式返回
+      default-filters:
+        - ResponseMessage
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+# 动态规则使用的dataId group
+nacos:
+  dynamic:
+    route:
+      data-id: gateway-router
+      group: alibaba
