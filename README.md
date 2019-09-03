@@ -134,3 +134,9 @@ YapiUpload配置例子(.idea->misc.xml)：
  * @return {@link ResponseMessage< List< AlibabaUser>>}
  **/
 ```
+
+### 动态路由
+
+根据配置中的refreshGatewayRoute开启和关闭动态路由
+
+[配置参考](alibaba-gateway/README.md)
