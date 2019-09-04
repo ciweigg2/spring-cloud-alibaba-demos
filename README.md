@@ -36,10 +36,11 @@ why gateway ? 生产全部服务应该是内网的 所以需要nginx将gateway�
 ### 工具
 
 * Lombok
-* MyBatisCodeHelperPro(mybatis plus generator)
+* 【IDEA插件】MyBatisCodeHelperPro(mybatis plus generator)
 * docker-compose(服务编排暂未做实现)
-* YapiUpload(注释生成yapi文档)
+* 【IDEA插件】YapiUpload(注释生成yapi文档)
 * yapi [crazy-api个性化定制](https://github.com/xian-crazy/yapi)
+* 【IDEA插件】MapStruct Support(字段映射跳转)
 
 ### nacos配置中心介绍
 
