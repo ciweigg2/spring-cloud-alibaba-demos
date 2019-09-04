@@ -20,3 +20,5 @@ spring:
       discovery:
         #nacos注册中心
         server-addr: 114.67.104.142:8848
+        metadata:
+          version: ciwei

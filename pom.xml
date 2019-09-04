@@ -12,6 +12,7 @@
         <module>alibaba-gift-api</module>
         <module>alibaba-common</module>
         <module>alibaba-gateway</module>
+        <module>alibaba-starter</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -58,6 +59,16 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.ciwei</groupId>
+                <artifactId>alibaba-ribbon-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ciwei</groupId>
+                <artifactId>alibaba-common-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>28.1-jre</version>
@@ -94,6 +105,18 @@
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
                 <version>1.9.4</version>
+            </dependency>
+            <!--hutool工具类-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>4.6.4</version>
+            </dependency>
+            <!--alibaba线程类可以传递子线程-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>2.11.0</version>
             </dependency>
             <!--    Spring Cloud Alibaba 依赖-->
             <dependency>

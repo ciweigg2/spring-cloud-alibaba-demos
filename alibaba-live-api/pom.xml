@@ -18,6 +18,11 @@
             <artifactId>alibaba-common</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.ciwei</groupId>
+            <artifactId>alibaba-ribbon-spring-boot-starter</artifactId>
+        </dependency>
+
         <!-- mybatis-plus begin -->
         <dependency>
             <groupId>com.baomidou</groupId>
