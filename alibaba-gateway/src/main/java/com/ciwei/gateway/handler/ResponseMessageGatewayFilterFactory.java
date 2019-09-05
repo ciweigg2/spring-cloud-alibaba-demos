@@ -58,11 +58,7 @@ public class ResponseMessageGatewayFilterFactory extends ModifyResponseBodyGatew
                 responseEntity.setMessage(e.getMessage());
             }
             //使用mapstruct转换dto返回
-            ResponseMessage responseMessage = responseMessageMapper.responseEntityToResponseMessage(responseEntity);
-            if (responseMessage.getData() == null) {
-                responseMessage.setMessage("failed");
-                responseMessage.setData(responseEntity.getMessage());
-            }
+            ResponseMessage responseMessage = responseMessageMapper.responseEntityToResponseMessage(responseEntity ,new ResponseMessage());
             return Mono.just(responseMessage);
         };
 
