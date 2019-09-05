@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LbIsolationInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        String version = request.getHeader(CommonConstant.Z_L_T_VERSION);
+        String version = request.getHeader(CommonConstant.SPRING_CLOUD_VERSION);
         if(StrUtil.isNotEmpty(version)){
             LbIsolationContextHolder.setVersion(version);
         }

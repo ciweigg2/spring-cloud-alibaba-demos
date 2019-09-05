@@ -23,7 +23,7 @@ public class LbIsolationInterceptor implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        List<String> versionList = exchange.getRequest().getHeaders().get(CommonConstant.Z_L_T_VERSION);
+        List<String> versionList = exchange.getRequest().getHeaders().get(CommonConstant.SPRING_CLOUD_VERSION);
         if (!CollectionUtils.isEmpty(versionList)) {
             LbIsolationContextHolder.setVersion(versionList.get(0));
         }
