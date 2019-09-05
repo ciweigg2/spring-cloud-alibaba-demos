@@ -1,6 +1,5 @@
 package com.ciwei.ribbon.rule;
 
-import com.ciwei.ribbon.WebAppConfigurer;
 import com.netflix.loadbalancer.IRule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,14 +11,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RuleConfigure {
 
+    /**
+     * 版本路由
+     */
     @Bean
     public IRule isolationRule() {
         return new CustomIsolationRule();
     }
-
-//    @Bean
-//    public WebAppConfigurer webAppConfigurer(){
-//        return new WebAppConfigurer();
-//    }
 
 }

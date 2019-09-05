@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 
 spring:
   application:
@@ -12,3 +12,7 @@ spring:
         server-addr: 114.67.104.142:8848
         file-extension: yaml
         group: alibaba
+# 是否开启版本控制
+lb:
+  gateway:
+    enable: true

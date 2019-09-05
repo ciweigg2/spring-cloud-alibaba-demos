@@ -149,3 +149,56 @@ YapiUpload配置例子(.idea->misc.xml)：
 ### 动态数据源
 
 和动态路由原理一样 只需要在Nacos配置中心配置 更新配置会自动刷新bean和配置
+
+### 协同开发
+
+开发中可能会遇到公用一个注册中心 那么服务就会混乱 所以添加了版本控制各自使用自己的版本开发
+
+应用服务都需要添加注解 依赖 版本
+
+添加注解：
+
+```java
+@EnableRibbonLbInterceptor
+@EnableVersionRule
+```
+
+添加starter依赖：
+
+```
+<dependency>
+    <groupId>com.ciwei</groupId>
+    <artifactId>alibaba-ribbon-spring-boot-starter</artifactId>
+</dependency>
+```
+
+添加版本：
+
+```yaml
+spring:
+  cloud:
+    nacos:
+      discovery:
+        metadata:
+          version: ciwei
+```
+
+网关添加开启版本控制
+
+```yaml
+lb:
+  gateway:
+    enable: true
+```
+
+#### 测试
+
+postman请求中添加hearders为spring-cloud-version值为ciwei的就可以了
+
+#### 原理
+
+每次请求会在拦截器中获取header为spring-cloud-version的版本 然后去CustomIsolationRule.java中匹配返回对应的服务
+
+#### 为什么使用TransmittableThreadLoca？
+
+答：因为可以子线程中传递值 虽然这边没用到 但是如果用到了呢
