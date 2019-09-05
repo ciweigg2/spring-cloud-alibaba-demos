@@ -17,9 +17,9 @@ public class RuleConfigure {
         return new CustomIsolationRule();
     }
 
-    @Bean
-    public WebAppConfigurer webAppConfigurer(){
-        return new WebAppConfigurer();
-    }
+//    @Bean
+//    public WebAppConfigurer webAppConfigurer(){
+//        return new WebAppConfigurer();
+//    }
 
 }

@@ -3,6 +3,7 @@ package com.ciwei.common.interceptor;
 import cn.hutool.core.util.StrUtil;
 import com.ciwei.common.constant.CommonConstant;
 import com.ciwei.common.context.LbIsolationContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
