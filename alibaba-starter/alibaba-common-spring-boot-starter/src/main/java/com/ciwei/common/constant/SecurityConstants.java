@@ -3,7 +3,7 @@ package com.ciwei.common.constant;
 /**
  * Security 权限常量
  *
- * @author zlt
+ * @author Ciwei
  */
 public interface SecurityConstants {
     /**

@@ -6,7 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 /**
  * Banner初始化
  *
- * @author zlt
+ * @author Ciwei
  * @date 2019/8/28
  */
 public class BannerInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {

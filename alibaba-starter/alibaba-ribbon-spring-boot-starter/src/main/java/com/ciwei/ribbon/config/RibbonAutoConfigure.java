@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Ribbon扩展配置类
  *
- * @author zlt
+ * @author Ciwei
  * @date 2018/11/17 9:24
  */
 @EnableConfigurationProperties(RestTemplateProperties.class)

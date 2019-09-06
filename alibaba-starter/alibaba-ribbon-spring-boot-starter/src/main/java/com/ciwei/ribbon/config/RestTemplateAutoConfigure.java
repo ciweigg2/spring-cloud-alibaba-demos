@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * @author zlt
+ * @author Ciwei
  * @date 2018/11/17
  */
 @EnableConfigurationProperties(RestTemplateProperties.class)

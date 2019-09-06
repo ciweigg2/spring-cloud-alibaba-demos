@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 负载均衡隔离规则过滤器 开启根据version选择对应的服务 服务注册需要开启拦截器
  *
- * @author zlt
+ * @author Ciwei
  * @date 2019/8/5
  */
 @Configuration

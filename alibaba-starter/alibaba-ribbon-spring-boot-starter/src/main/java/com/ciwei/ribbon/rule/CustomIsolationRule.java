@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * 自定义隔离随机规则 如果没有匹配到version 则使用默认的策略轮训匹配的
  *
- * @author zlt
+ * @author Ciwei
  * @date 2019/9/3
  */
 public class CustomIsolationRule extends RoundRobinRule {

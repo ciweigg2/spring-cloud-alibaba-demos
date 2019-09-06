@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 负载均衡隔离规则截器
  *
- * @author zlt
+ * @author Ciwei
  * @date 2019/8/5
  */
 public class RibbonLbIsolationInterceptor implements HandlerInterceptor {
