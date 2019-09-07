@@ -213,3 +213,9 @@ postman请求中添加hearders为spring-cloud-version值为ciwei的就可以了
 这边使用了lcn分布式事务解决方案(当然也可以使用alibaba开源的seata)
 
 具体使用参考：[分布式事务](alibaba-tx-manager/README.md)
+
+lcn不支持try catch捕获的异常 所以熔断后 需要手动回滚(在熔断逻辑添加手动回滚逻辑)
+
+```
+DTXUserControls.rollbackGroup(TracingContext.tracing().groupId());
+```
