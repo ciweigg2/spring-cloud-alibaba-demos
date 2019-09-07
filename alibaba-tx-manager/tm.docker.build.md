@@ -1,8 +1,98 @@
 ### 构建镜像到本地
 
+#### 下载源码
+
+我的github也有备份 备份版本是5.0.2.RELEASE
+
+```
+git clone https://github.com/codingapi/tx-lcn.git
+```
+
+#### 修改txlcn-tm打包build
+
+删除原有build 添加下面的
+
+```
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--docker 构建-->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <imageName>codingapi/txlcn-tm</imageName>
+                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <imageTags>
+                        <imageTag>5.0.2</imageTag>
+                    </imageTags>
+
+                    <serverId>docker-hub</serverId>
+                    <registryUrl>https://index.docker.io/v1/</registryUrl>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+```
+
+#### 构建docker镜像
+
+如果下面执行执行报错 先在根目录 mvn clean package -DskipTests
+
 ```
 # 当前路径 tx-lcn/txlcn-tm
 mvn clean package -DskipTests docker:build
+```
+
+打包后的镜像版本是codingapi/txlcn-tm:5.0.2
+
+> 如果要自己编写Dockerfile
+
+将编译完的txlcn-tm-5.0.2.RELEASE.jar 和 Dockerfile放在一个目录
+
+vi Dockerfile
+
+```
+###指定java8环境镜像
+FROM java:8
+
+###复制文件到容器app-springboot
+ADD txlcn-tm-5.0.2.RELEASE.jar /lcn.jar
+
+###声明启动端口号
+EXPOSE 7970
+EXPOSE 8070
+
+###配置容器启动后执行的命令
+ENTRYPOINT [ "bash", "-c", "java -jar /lcn.jar" ]
+```
+
+构建镜像：
+
+```
+docker build ciwei-lcn:5.0.2 .
 ```
 
 #### 运行说明
@@ -45,11 +135,10 @@ spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 spring.datasource.url=jdbc:mysql://127.0.0.1:3306/tx-manager?characterEncoding=UTF-8
 spring.datasource.username=root
 spring.datasource.password=root
-#mybatis.configuration.map-underscore-to-camel-case=true
-#mybatis.configuration.use-generated-keys=true
+mybatis.configuration.map-underscore-to-camel-case=true
+mybatis.configuration.use-generated-keys=true
 spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
 spring.jpa.hibernate.ddl-auto=none
-#tx-lcn.logger.enabled=true
 # TxManager Host Ip
 #注意：如果是Linux环境用docker发布，此处一定不能更改，只能使用0.0.0.0
 #注意：如果是Linux环境用jar包运行，此处修改为自己的Linux IP地址，例如192.168.1.81
@@ -66,14 +155,29 @@ tx-lcn.manager.admin-key=123456
 #tx-lcn.message.netty.attr-delay-time=10000
 #tx-lcn.manager.concurrent-level=128
 # 开启日志
-#tx-lcn.logger.enabled=true
-#logging.level.com.codingapi=debug
+tx-lcn.logger.enabled=true
+logging.level.com.codingapi=debug
+logging.level.com.codingapi=debug
+tx-lcn.logger.driver-class-name=${spring.datasource.driver-class-name}
+tx-lcn.logger.jdbc-url=${spring.datasource.url}
+tx-lcn.logger.username=${spring.datasource.username}
+tx-lcn.logger.password=${spring.datasource.password}
 #redisIp
 spring.redis.host=127.0.0.1
-#redis\u7AEF\u53E3
+#redis 端口
 spring.redis.port=6379
-#redis\u5BC6\u7801
+#redis 密码
 #spring.redis.password=
+##发生异常发送邮件给管理员
+#spring.mail.host=smtp.126.com
+#spring.mail.port=25
+#spring.mail.username=pw1914109147@126.com
+#spring.mail.password=
+# 异常回调开关。开启时请制定ex-url
+#tx-lcn.manager.ex-url-enabled=true
+# 事务异常通知（任何http协议地址。未指定协议时，为TM提供内置功能接口）。默认是邮件通知
+#tx-lcn.manager.ex-url=/provider/email-to/1914109147@qq.com
+#tx-lcn.manager.ex-url=http://192.168.25.1:8002/api-cu/test/findAll
 ```
 
 执行命令
