@@ -7,7 +7,9 @@ mvn clean package -DskipTests docker:build
 
 #### 运行说明
 
-- 可以不用构建,在有docker环境的机器上直接运行下面命令
+- 可以不用构建,在有docker环境的机器上直接运行下面命令(官方版本是5.0.2.dev)
+
+最好别用官方的版本除非他升级了 maven版本是5.0.2.RELEASE官方镜像是5.0.2.dev 连接失败的会
 
 1. 命令行传参数运行
 
@@ -22,7 +24,7 @@ docker run -p 7970:7970 -p 8070:8070 \
 -e spring.redis.password= \
 -e tx-lcn.manager.admin-key=123456 \
 -e tx-lcn.logger.enabled=true \
--e tx-lcn.manager.host=127.0.0.1 \
+-e tx-lcn.manager.host=0.0.0.0 \
 -d codingapi/txlcn-tm
 ```
 
@@ -49,7 +51,9 @@ spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
 spring.jpa.hibernate.ddl-auto=none
 #tx-lcn.logger.enabled=true
 # TxManager Host Ip
-tx-lcn.manager.host=127.0.0.1
+#注意：如果是Linux环境用docker发布，此处一定不能更改，只能使用0.0.0.0
+#注意：如果是Linux环境用jar包运行，此处修改为自己的Linux IP地址，例如192.168.1.81
+tx-lcn.manager.host=0.0.0.0
 # TxClient连接请求端口
 tx-lcn.manager.port=8070
 tx-lcn.manager.admin-key=123456
@@ -75,7 +79,12 @@ spring.redis.port=6379
 执行命令
 
 ```
-docker run -p 7970:7970 -p 8070:8070 --restart always --name tm -v /opt/data/lcntm:/opt/data/lcntm -e spring.profiles.active=dev -e spring.config.additional-location=/opt/data/lcntm/application-dev.properties -d codingapi/txlcn.tm
+docker run -p 7970:7970 -p 8070:8070 \
+--restart always \
+--name tm -v /opt/data/lcntm:/opt/data/lcntm \
+-e spring.profiles.active=dev \
+-e spring.config.additional-location=/opt/data/lcntm/application-dev.properties \
+-d codingapi/txlcn-tm
 ```
 
 - 说明
