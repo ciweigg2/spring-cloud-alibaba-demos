@@ -1,9 +1,10 @@
 package com.ciwei.gift;
 
-import com.ciwei.ribbon.annotation.EnableRibbonLbInterceptor;
-import com.ciwei.ribbon.annotation.EnableVersionRule;
+import com.ciwei.ribbon.annotation.EnableServerVersionRule;
+import com.codingapi.txlcn.tc.config.EnableDistributedTransaction;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 
 /**
  * @NAME AlibabaGiftSpringBootApplication
@@ -11,8 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @DATE 2019/8/26/026 10:20
  **/
 @SpringBootApplication
-@EnableRibbonLbInterceptor
-@EnableVersionRule
+@EnableServerVersionRule
+@EnableDistributedTransaction
+@EnableCircuitBreaker
 public class AlibabaGiftSpringBootApplication {
 
     public static void main(String[] args) {

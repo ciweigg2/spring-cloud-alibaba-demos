@@ -3,8 +3,10 @@ package com.ciwei.gift.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ciwei.common.request.GetAlibabaGiftByUserIdRequest;
 import com.ciwei.common.utils.ResponseMessage;
+import com.ciwei.common.utils.SnowflakeIdWorker;
 import com.ciwei.gift.mybatis.model.AlibabaGift;
 import com.ciwei.gift.mybatis.service.AlibabaGiftService;
+import com.ciwei.gift.service.GiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,9 @@ public class GiftController {
 
     @Autowired
     private AlibabaGiftService alibabaGiftService;
+
+    @Autowired
+    private GiftService giftService;
 
     /**
      * @author 如果没有你
@@ -67,6 +72,25 @@ public class GiftController {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.setEntity(alibabaGift);
         return alibabaGiftService.getBaseMapper().selectList(queryWrapper);
+    }
+
+    /**
+     * @author 如果没有你
+     * @date 2019/9/01 19:13
+     * @description 测试lcn分布式事务
+     * @param getAlibabaGiftByUserIdRequest: userId
+     * @status 已发布
+     * @menu 礼物服务模块/RPC
+     * @return {@link ResponseMessage<AlibabaGift>}
+     **/
+    @PostMapping(value = "/insertGift")
+    public boolean insertGift(@RequestBody GetAlibabaGiftByUserIdRequest getAlibabaGiftByUserIdRequest) {
+        SnowflakeIdWorker snowflakeIdWorker = new SnowflakeIdWorker(1 ,1);
+        AlibabaGift alibabaGift = new AlibabaGift();
+        alibabaGift.setUserId(getAlibabaGiftByUserIdRequest.getUserId());
+        alibabaGift.setGiftId(snowflakeIdWorker.nextId());
+        alibabaGift.setGiftName("我爱姜忆薇");
+        return giftService.insertGift(alibabaGift);
     }
 
 }

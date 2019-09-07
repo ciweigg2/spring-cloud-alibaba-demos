@@ -1,13 +1,13 @@
 package com.ciwei.user.mybatis.service.impl;
 
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ciwei.user.mybatis.mapper.AlibabaUserMapper;
 import com.ciwei.user.mybatis.model.AlibabaUser;
 import com.ciwei.user.mybatis.service.AlibabaUserService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @NAME AlibabaUserServiceImpl
@@ -34,4 +34,5 @@ public class AlibabaUserServiceImpl extends ServiceImpl<AlibabaUserMapper, Aliba
     public int insertOrUpdateSelective(AlibabaUser record) {
         return baseMapper.insertOrUpdateSelective(record);
     }
+
 }

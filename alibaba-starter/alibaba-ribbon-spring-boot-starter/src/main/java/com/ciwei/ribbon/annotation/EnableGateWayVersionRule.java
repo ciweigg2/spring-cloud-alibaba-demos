@@ -1,6 +1,6 @@
 package com.ciwei.ribbon.annotation;
 
-import com.ciwei.ribbon.WebAppConfigurer;
+import com.ciwei.ribbon.rule.RuleConfigure;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -15,6 +15,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@Import({WebAppConfigurer.class})
-public @interface EnableRibbonLbInterceptor {
+@Import(RuleConfigure.class)
+public @interface EnableGateWayVersionRule {
 }

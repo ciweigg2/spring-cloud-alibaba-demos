@@ -13,6 +13,11 @@ spring:
         file-extension: yaml
         group: alibaba
 # 是否开启版本控制
-lb:
-  gateway:
-    enable: true
+alibaba:
+  lb:
+    gateway:
+      enable: true
+# 关闭导入版本规则拦截器 不关闭的话默认会加载
+  rule:
+    interceptor:
+      enable: false

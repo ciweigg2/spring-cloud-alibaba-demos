@@ -1,8 +1,9 @@
 package com.ciwei.user.mybatis.service;
 
-import com.ciwei.user.mybatis.model.AlibabaUser;
-import java.util.List;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ciwei.user.mybatis.model.AlibabaUser;
+
+import java.util.List;
     /** 
  * @NAME AlibabaUserService
  * @USER Ciwei
