@@ -13,6 +13,7 @@
         <module>alibaba-common</module>
         <module>alibaba-gateway</module>
         <module>alibaba-starter</module>
+        <module>alibaba-seata</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

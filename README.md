@@ -210,4 +210,10 @@ postman请求中添加hearders为spring-cloud-version值为ciwei的就可以了
 
 ### 分布式事务seata
 
-Spring Cloud Alibaba 快速集成 https://github.com/seata/seata-samples/blob/master/doc/quick-integration-with-spring-cloud.md
+使用：[分布式事务seata](alibaba-seata/README.md)
+
+参考：
+
+* Spring Cloud Alibaba Seata 快速集成 https://github.com/seata/seata-samples/blob/master/doc/quick-integration-with-spring-cloud.md
+
+* Spring Cloud Alibaba Nacos Seata 快速集成 https://github.com/seata/seata-samples/blob/master/springcloud-nacos-seata/README.md
