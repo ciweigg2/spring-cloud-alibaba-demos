@@ -13,6 +13,7 @@ spring:
         file-extension: yaml
         group: alibaba
 # 是否开启版本控制
-lb:
-  gateway:
-    enable: true
+alibaba:
+  lb:
+    gateway:
+      enabled: true

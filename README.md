@@ -159,8 +159,7 @@ YapiUpload配置例子(.idea->misc.xml)：
 添加注解：
 
 ```java
-@EnableRibbonLbInterceptor
-@EnableVersionRule
+@EnableServerVersionRule
 ```
 
 添加starter依赖：
@@ -191,6 +190,12 @@ lb:
     enable: true
 ```
 
+网关添加开启版本规则
+
+```java
+@EnableGateWayVersionRule
+```
+
 #### 测试
 
 postman请求中添加hearders为spring-cloud-version值为ciwei的就可以了
@@ -201,4 +206,4 @@ postman请求中添加hearders为spring-cloud-version值为ciwei的就可以了
 
 #### 为什么使用TransmittableThreadLoca？
 
-答：因为可以子线程中传递值 虽然这边没用到 但是如果用到了呢
+答：因为可以子线程中传递值而且异步可以获取传递 虽然这边没用到 但是如果用到了呢

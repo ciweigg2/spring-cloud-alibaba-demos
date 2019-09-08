@@ -2,7 +2,9 @@ package com.ciwei.gateway.filter;
 
 import com.ciwei.common.constant.CommonConstant;
 import com.ciwei.common.context.LbIsolationContextHolder;
+import com.ciwei.gateway.properties.AlibabaGateWayProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +22,8 @@ import java.util.List;
  * @date 2019/8/5
  */
 @Configuration
-@ConditionalOnProperty(name = "lb.gateway.enable" ,havingValue = "true")
+@ConditionalOnProperty(name = "alibaba.lb.gateway.enabled" ,havingValue = "true")
+@EnableConfigurationProperties(value = AlibabaGateWayProperties.class)
 public class GateWayLbIsolationFilter implements GlobalFilter, Ordered {
 
     @Override
