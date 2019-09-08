@@ -219,3 +219,5 @@ lcn不支持try catch捕获的异常 所以熔断后 需要手动回滚(在熔�
 ```
 DTXUserControls.rollbackGroup(TracingContext.tracing().groupId());
 ```
+
+lcn5.0.2.RELEASE版本不支持多实例集群部署 通知会混乱 所以弃用
