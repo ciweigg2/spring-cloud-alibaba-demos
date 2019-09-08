@@ -29,11 +29,13 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private GiftClient giftClient;
 
+	@Autowired
+	private SnowflakeIdWorker snowflakeIdWorker;
+
 	@Override
 	@HystrixCommand(fallbackMethod="getFallback")
 	@GlobalTransactional
 	public boolean insertUser(AlibabaUser alibabaUser) {
-		SnowflakeIdWorker snowflakeIdWorker = new SnowflakeIdWorker(1, 1);
 		GetAlibabaGiftByUserIdRequest getAlibabaGiftByUserIdRequest = new GetAlibabaGiftByUserIdRequest();
 		getAlibabaGiftByUserIdRequest.setUserId(snowflakeIdWorker.nextId());
 		alibabaUser.setUserId(snowflakeIdWorker.nextId());
@@ -41,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		alibabaUserService.save(alibabaUser);
 		giftClient.insertGift(getAlibabaGiftByUserIdRequest);
 		//模拟异常
-		int a = 1/0;
+//		int a = 1/0;
 		return true;
 	}
 

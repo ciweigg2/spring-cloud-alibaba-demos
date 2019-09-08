@@ -41,6 +41,7 @@
         <spring-cloud-starter-hystrix.version>1.4.7.RELEASE</spring-cloud-starter-hystrix.version>
         <guava.version>28.1-jre</guava.version>
         <fastjson.version>1.2.59</fastjson.version>
+        <banner.versio>1.0.2</banner.versio>
     </properties>
 
     <dependencyManagement>
@@ -130,6 +131,12 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-hystrix</artifactId>
                 <version>${spring-cloud-starter-hystrix.version}</version>
+            </dependency>
+            <!--自定义banner-->
+            <dependency>
+                <groupId>com.nepxion</groupId>
+                <artifactId>banner</artifactId>
+                <version>1.0.2</version>
             </dependency>
             <!--    Spring Cloud Alibaba 依赖-->
             <dependency>

@@ -28,6 +28,9 @@ public class GiftController {
     @Autowired
     private GiftService giftService;
 
+    @Autowired
+    private SnowflakeIdWorker snowflakeIdWorker;
+
     /**
      * @author 如果没有你
      * @date 2019/8/29 16:07
@@ -85,7 +88,6 @@ public class GiftController {
      **/
     @PostMapping(value = "/insertGift")
     public boolean insertGift(@RequestBody GetAlibabaGiftByUserIdRequest getAlibabaGiftByUserIdRequest) {
-        SnowflakeIdWorker snowflakeIdWorker = new SnowflakeIdWorker(1 ,1);
         AlibabaGift alibabaGift = new AlibabaGift();
         alibabaGift.setUserId(getAlibabaGiftByUserIdRequest.getUserId());
         alibabaGift.setGiftId(snowflakeIdWorker.nextId());
