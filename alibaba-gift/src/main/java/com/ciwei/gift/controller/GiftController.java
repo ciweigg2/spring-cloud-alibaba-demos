@@ -89,7 +89,7 @@ public class GiftController {
         AlibabaGift alibabaGift = new AlibabaGift();
         alibabaGift.setUserId(getAlibabaGiftByUserIdRequest.getUserId());
         alibabaGift.setGiftId(snowflakeIdWorker.nextId());
-        alibabaGift.setGiftName("我爱姜忆薇");
+        alibabaGift.setGiftName("我爱G.E.M邓紫棋");
         return giftService.insertGift(alibabaGift);
     }
 

@@ -207,3 +207,7 @@ postman请求中添加hearders为spring-cloud-version值为ciwei的就可以了
 #### 为什么使用TransmittableThreadLoca？
 
 答：因为可以子线程中传递值而且异步可以获取传递 虽然这边没用到 但是如果用到了呢
+
+### 分布式事务seata
+
+Spring Cloud Alibaba 快速集成 https://github.com/seata/seata-samples/blob/master/doc/quick-integration-with-spring-cloud.md

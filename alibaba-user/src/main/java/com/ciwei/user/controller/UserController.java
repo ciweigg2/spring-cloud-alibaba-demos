@@ -13,7 +13,6 @@ import com.ciwei.user.feign.gift.model.AlibabaGift;
 import com.ciwei.user.mybatis.model.AlibabaUser;
 import com.ciwei.user.mybatis.service.AlibabaUserService;
 import com.ciwei.user.service.UserService;
-import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +53,6 @@ public class UserController {
      * @return {@link ResponseMessage< List< AlibabaUser>>}
      **/
     @PostMapping(value = "/selectAlibabaUsers")
-    @LcnTransaction
     public ResponseMessage<GetAlibabaUserDto> getAlibabaUser(@RequestBody GetAlibabaUserRequest getAlibabaUserRequest) {
         //应该在service完成的 但是查询也不涉及事务 所以无所谓了
         GetAlibabaUserDto getAlibabaUserDto = new GetAlibabaUserDto();
