@@ -200,6 +200,8 @@ lb:
 
 postman请求中添加hearders为spring-cloud-version值为ciwei的就可以了
 
+不传版本使用默认的负载均衡规则
+
 #### 原理
 
 每次请求会在拦截器中获取header为spring-cloud-version的版本 然后去CustomIsolationRule.java中匹配返回对应的服务
