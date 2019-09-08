@@ -185,9 +185,10 @@ spring:
 网关添加开启版本控制
 
 ```yaml
-lb:
-  gateway:
-    enable: true
+alibaba:
+  lb:
+    gateway:
+      enable: true
 ```
 
 网关添加开启版本规则
