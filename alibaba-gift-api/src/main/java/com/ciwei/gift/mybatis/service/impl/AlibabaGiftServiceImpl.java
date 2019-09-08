@@ -1,13 +1,13 @@
 package com.ciwei.gift.mybatis.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ciwei.gift.mybatis.mapper.AlibabaGiftMapper;
+import com.ciwei.gift.mybatis.model.AlibabaGift;
 import com.ciwei.gift.mybatis.service.AlibabaGiftService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ciwei.gift.mybatis.model.AlibabaGift;
-import com.ciwei.gift.mybatis.mapper.AlibabaGiftMapper;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @NAME AlibabaGiftServiceImpl
@@ -34,4 +34,5 @@ public class AlibabaGiftServiceImpl extends ServiceImpl<AlibabaGiftMapper, Aliba
     public int insertOrUpdateSelective(AlibabaGift record) {
         return baseMapper.insertOrUpdateSelective(record);
     }
+
 }
