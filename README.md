@@ -1,5 +1,7 @@
 ![](img/logo.png)
 
+> LOGO制作网站：http://www.uugai.com/
+
 ### 开发规范
 
 SpringCloud架构开发规范
@@ -34,6 +36,8 @@ why gateway ? 生产全部服务应该是内网的 所以需要nginx将gateway�
 * SpringCloudAlibaba
 * Nacos (注册中心兼配置中心)
 * Mysql
+* Seata
+* Wii (解决通过Spring Cloud调用非Spring Cloud项目 源码地址：https://gitee.com/itmuch/spring-cloud-wii)
 
 ### 工具
 
@@ -222,3 +226,11 @@ postman请求中添加hearders为spring-cloud-version值为ciwei的就可以了
 * Spring Cloud Alibaba Seata 快速集成 https://github.com/seata/seata-samples/blob/master/doc/quick-integration-with-spring-cloud.md
 
 * Spring Cloud Alibaba Nacos Seata 快速集成 https://github.com/seata/seata-samples/blob/master/springcloud-nacos-seata/README.md
+
+### Spring Cloud Wii
+
+异构微服务框架(可选) 主要解决使用微服务后调用以前项目的接口 需要也通过Nacos注册中心调用的
+
+解决通过Spring Cloud调用非Spring Cloud项目
+
+源码地址：https://gitee.com/itmuch/spring-cloud-wii
