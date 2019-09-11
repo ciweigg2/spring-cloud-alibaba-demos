@@ -1,4 +1,4 @@
-![](img/logo.png)
+![](img/logo.jpg)
 
 > LOGO制作网站：http://www.uugai.com/
 
