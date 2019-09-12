@@ -47,6 +47,12 @@ public class NacosFinalRule extends AbstractLoadBalancerRule {
             // 所有实例
             List<Instance> instances = namingService.selectInstances(name, true);
 
+            //如果不收版本控制直接使用默认的路由
+            if(isClusterVersion == false){
+                Instance instance = ExtendBalancer.getHostByRandomWeight2(instances);
+                return new NacosServer(instance);
+            }
+
             List<Instance> metadataMatchInstances = instances;
             // 如果配置了版本映射，那么只调用元数据匹配的实例
             if (StringUtils.isNotBlank(targetVersion)) {
