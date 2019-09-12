@@ -14,7 +14,7 @@ spring:
           - data-id: alibaba-common.properties
             group: alibaba
             refresh: true
-        # 多个应用间配置共享的 Data Id
+        # 多个应用间配置共享的 Data Id 只能共享默认GROUP DEFAULT_GROUP
         shared-dataids: alibaba-common.yaml
         refreshable-dataids: alibaba-common.yaml
       discovery:
