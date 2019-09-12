@@ -16,7 +16,7 @@ public class RuleConfigure {
      */
     @Bean
     public IRule isolationRule() {
-        return new CustomIsolationRule();
+        return new NacosFinalRule();
     }
 
 }

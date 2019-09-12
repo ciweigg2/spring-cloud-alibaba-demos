@@ -177,15 +177,16 @@ YapiUpload配置例子(.idea->misc.xml)：
 </dependency>
 ```
 
-添加版本：
+添加版本和集群：
 
 ```yaml
 spring:
   cloud:
     nacos:
       discovery:
+        cluster-name: Alibaba
         metadata:
-          version: ciwei
+          target-version: ciwei
 ```
 
 网关添加开启版本控制
