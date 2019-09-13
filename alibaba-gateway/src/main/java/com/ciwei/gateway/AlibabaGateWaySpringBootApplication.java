@@ -1,6 +1,6 @@
 package com.ciwei.gateway;
 
-import com.ciwei.ribbon.annotation.EnableGateWayVersionRule;
+import com.ciwei.ribbon.annotation.EnableServerVersionRule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @DATE 2019/8/26/026 10:20
  **/
 @SpringBootApplication
-@EnableGateWayVersionRule
+@EnableServerVersionRule
 public class AlibabaGateWaySpringBootApplication {
 
     public static void main(String[] args) {

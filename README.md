@@ -160,7 +160,7 @@ YapiUpload配置例子(.idea->misc.xml)：
 
 开发中可能会遇到公用一个注册中心 那么服务就会混乱 所以添加了版本控制各自使用自己的版本开发
 
-应用服务都需要添加注解 依赖 版本
+应用服务网关都需要添加注解 依赖 版本
 
 添加注解：
 
@@ -186,37 +186,48 @@ spring:
       discovery:
         cluster-name: Alibaba
         metadata:
-          target-version: ciwei
+          version: 0.1
+          target-version: 0.1
 ```
 
-网关添加开启版本控制
+是否开启版本配置：
 
-```yaml
-alibaba:
-  lb:
-    gateway:
-      enable: true
+在nacos配置中心添加(动态配置有三种方式选一种就行了)：
+
+```
+dataId: alibaba-common.properties
+group: alibaba
+isClusterVersion=true
 ```
 
-网关添加开启版本规则
+对应服务配置文件bootstrap.yml添加：
 
-```java
-@EnableGateWayVersionRule
+```
+# 自定义扩展的dataId配置
+ext-config:
+  - data-id: alibaba-common.properties
+    group: alibaba
+    refresh: true
 ```
 
 #### 测试
 
-postman请求中添加hearders为spring-cloud-version值为ciwei的就可以了
+有三个比较重要的参数：cluster-name: Alibaba ，version: 0.1 ，target-version: 0.1
 
-不传版本使用默认的负载均衡规则
+* 负载均衡规则：优先选择同集群下，符合metadata的实例
+* 如果没有，就选择所有集群下，符合metadata的实例
 
-#### 原理
+如果不存在target-version那么会使用cluster-name下所有实例的默认规则
 
-每次请求会在拦截器中获取header为spring-cloud-version的版本 然后去CustomIsolationRule.java中匹配返回对应的服务
+如果cluster-name也不存在那么会使用默认的负载均衡规则(轮询)
 
-#### 为什么使用TransmittableThreadLoca？
+isClusterVersion=false 使用默认的负载均衡规则(轮询)
 
-答：因为可以子线程中传递值而且异步可以获取传递 虽然这边没用到 但是如果用到了呢
+#### 多人开发
+
+生产上线配置中心可以不配置isClusterVersion=false使用默认的负载均衡策略
+
+配置自己的服务版本和使用版本：version: 0.1 ，target-version: 0.1 当然也可以配置集群：cluster-name: Alibaba
 
 ### 分布式事务seata
 

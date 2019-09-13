@@ -22,7 +22,8 @@ spring:
         server-addr: 114.67.104.142:8848
         cluster-name: Alibaba
         metadata:
-          target-version: ciwei
+          version: 0.1
+          target-version: 0.1
 #开启feign支持hystrix 新版本默认关闭 修改调用超时时间（默认是1秒就算超时）
 feign:
   hystrix:
