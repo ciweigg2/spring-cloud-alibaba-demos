@@ -7,7 +7,8 @@ import java.util.List;
 
 /**
  * 继承实现获取实例
- * @author HZI.HUI
+ *
+ * @author Ciwei
  * @date 2019/7/17 23:20
  */
 public class ExtendBalancer extends Balancer {

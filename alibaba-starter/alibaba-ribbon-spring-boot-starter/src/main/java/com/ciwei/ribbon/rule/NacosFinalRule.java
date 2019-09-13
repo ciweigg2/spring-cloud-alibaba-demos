@@ -19,7 +19,8 @@ import java.util.stream.Collectors;
 
 /**
  * Ribbon 整合 nacos 权重负载均衡
- * @author HZI.HUI
+ *
+ * @author Ciwei
  * @date 2019/7/17 23:17
  */
 @Slf4j
