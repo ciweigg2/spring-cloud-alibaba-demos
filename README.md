@@ -197,7 +197,7 @@ spring:
 ```
 dataId: alibaba-common.properties
 group: alibaba
-isClusterVersion=true
+ribbon.is-cluster-version.enabled=true
 ```
 
 对应服务配置文件bootstrap.yml添加：

@@ -1,4 +1,5 @@
 package com.ciwei.ribbon.rule;
+
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.nacos.ribbon.NacosServer;
 import com.alibaba.nacos.api.naming.NamingService;
@@ -11,7 +12,6 @@ import com.netflix.loadbalancer.Server;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 import java.util.Objects;
@@ -29,8 +29,8 @@ public class NacosFinalRule extends AbstractLoadBalancerRule {
     @Autowired
     private NacosDiscoveryProperties nacosDiscoveryProperties;
 
-    @Value("${isClusterVersion:false}")
-    private boolean isClusterVersion;
+    @Autowired
+    private NacosFinalRuleProperties nacosFinalRuleProperties;
 
     @Override
     public Server choose(Object key) {
@@ -49,7 +49,7 @@ public class NacosFinalRule extends AbstractLoadBalancerRule {
             List<Instance> instances = namingService.selectInstances(name, true);
 
             //如果不收版本控制直接使用默认的路由
-            if(isClusterVersion == false){
+            if(nacosFinalRuleProperties.isEnabled()== false){
                 Instance instance = ExtendBalancer.getHostByRandomWeight2(instances);
                 return new NacosServer(instance);
             }
