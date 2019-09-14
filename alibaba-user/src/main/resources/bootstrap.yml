@@ -2,6 +2,9 @@ spring:
   application:
     #模块名
     name: alibaba-user-provider
+  main:
+    # Spring Boot 2.1 需要设定
+    allow-bean-definition-overriding: true
   cloud:
     nacos:
       config:
@@ -24,6 +27,21 @@ spring:
         metadata:
           version: 0.1
           target-version: 0.1
+dubbo:
+  scan:
+    # dubbo 服务扫描基准包
+    base-packages: com.ciwei.user.service
+  protocol:
+    # dubbo 协议
+    name: dubbo
+    # dubbo 协议端口（ -1 表示自增端口，从 20880 开始）
+    port: -1
+  registry:
+    # 挂载到 Spring Cloud 注册中心
+    address: spring-cloud://114.67.104.142
+  # 用于服务消费方订阅服务提供方的应用名称的列表，若需订阅多应用，使用 "," 分割。 不推荐使用默认值为 "*"，它将订阅所有应用
+  cloud:
+    subscribed-services: alibaba-gift-provider
 #开启feign支持hystrix 新版本默认关闭 修改调用超时时间（默认是1秒就算超时）
 feign:
   hystrix:

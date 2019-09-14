@@ -1,18 +1,26 @@
 package com.ciwei.user.service.impl;
 
 import com.ciwei.common.request.GetAlibabaGiftByUserIdRequest;
+import com.ciwei.common.request.GetAlibabaUserRequest;
+import com.ciwei.common.utils.ResponseMessage;
 import com.ciwei.common.utils.SnowflakeIdWorker;
-import com.ciwei.user.feign.gift.GiftClient;
+import com.ciwei.gift.mybatis.model.AlibabaGift;
+import com.ciwei.gift.service.GiftService;
+import com.ciwei.user.dto.GetAlibabaUserDto;
 import com.ciwei.user.mybatis.model.AlibabaUser;
 import com.ciwei.user.mybatis.service.AlibabaUserService;
 import com.ciwei.user.service.UserService;
+import com.google.common.base.Preconditions;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.seata.core.exception.TransactionException;
 import io.seata.spring.annotation.GlobalTransactional;
 import io.seata.tm.api.GlobalTransactionContext;
+import org.apache.dubbo.config.annotation.Reference;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @NAME UserServiceImpl
@@ -23,36 +31,57 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private AlibabaUserService alibabaUserService;
+    @Autowired
+    private AlibabaUserService alibabaUserService;
 
-	@Autowired
-	private GiftClient giftClient;
+    @Autowired
+    private SnowflakeIdWorker snowflakeIdWorker;
 
-	@Autowired
-	private SnowflakeIdWorker snowflakeIdWorker;
+    @Reference
+    private GiftService giftService;
 
-	@Override
-	@HystrixCommand(fallbackMethod="getFallback")
-	@GlobalTransactional
-	public boolean insertUser(AlibabaUser alibabaUser) {
-		GetAlibabaGiftByUserIdRequest getAlibabaGiftByUserIdRequest = new GetAlibabaGiftByUserIdRequest();
-		getAlibabaGiftByUserIdRequest.setUserId(snowflakeIdWorker.nextId());
-		alibabaUser.setUserId(snowflakeIdWorker.nextId());
-		alibabaUser.setUserName("我爱G.E.M邓紫棋");
-		alibabaUserService.save(alibabaUser);
-		giftClient.insertGift(getAlibabaGiftByUserIdRequest);
-		//模拟异常
+    @Override
+    @HystrixCommand(fallbackMethod = "getFallback")
+    @GlobalTransactional
+    public boolean insertUser(AlibabaUser alibabaUser) {
+        Long uid = snowflakeIdWorker.nextId();
+        alibabaUser.setUserId(uid);
+        alibabaUser.setUserName("我爱G.E.M邓紫棋");
+        alibabaUserService.save(alibabaUser);
+        AlibabaGift alibabaGift = new AlibabaGift();
+        alibabaGift.setUserId(uid);
+        alibabaGift.setGiftId(snowflakeIdWorker.nextId());
+        alibabaGift.setGiftName("我爱G.E.M邓紫棋");
+        giftService.insertGift(alibabaGift);
+        //模拟异常
 //		int a = 1/0;
-		return true;
-	}
+        return true;
+    }
 
-	public boolean getFallback(AlibabaUser alibabaUser) throws TransactionException {
-		System.out.println("测试熔断后回滚事务");
-		//事务不接受try catch 和熔断后的 所以需要手动回滚
-		String xid = GlobalTransactionContext.getCurrentOrCreate().getXid();
-		GlobalTransactionContext.reload(xid).rollback();
-		return false;
-	}
+    public boolean getFallback(AlibabaUser alibabaUser) throws TransactionException {
+        System.out.println("测试熔断后回滚事务");
+        //事务不接受try catch 和熔断后的 所以需要手动回滚
+        String xid = GlobalTransactionContext.getCurrentOrCreate().getXid();
+        GlobalTransactionContext.reload(xid).rollback();
+        return false;
+    }
+
+    @Override
+    public ResponseMessage<GetAlibabaUserDto> getAlibabaUser(GetAlibabaUserRequest getAlibabaUserRequest) {
+        //应该在service完成的 但是查询也不涉及事务 所以无所谓了
+        GetAlibabaUserDto getAlibabaUserDto = new GetAlibabaUserDto();
+        GetAlibabaGiftByUserIdRequest getAlibabaGiftByUserIdRequest = new GetAlibabaGiftByUserIdRequest();
+        getAlibabaGiftByUserIdRequest.setUserId(getAlibabaUserRequest.getUserId());
+        List<AlibabaGift> alibabaGiftList = giftService.getAlibabaGiftByUserId(getAlibabaGiftByUserIdRequest);
+        getAlibabaUserDto.setAlibabaGiftList(alibabaGiftList);
+        //查询用户信息
+        AlibabaUser alibabaUser = alibabaUserService.getById(getAlibabaUserRequest.getUserId());
+        //判断用户是否为空
+        Preconditions.checkNotNull(alibabaUser, "未查询到用户");
+        getAlibabaUserDto.setUserId(alibabaUser.getUserId());
+        getAlibabaUserDto.setUserName(alibabaUser.getUserName());
+        getAlibabaUserDto.setCreateTime(alibabaUser.getCreateTime());
+        return ResponseMessage.success(getAlibabaUserDto);
+    }
 
 }

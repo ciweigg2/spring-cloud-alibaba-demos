@@ -1,10 +1,9 @@
+server:
+  port: 8081
 spring:
   application:
     #模块名
-    name: alibaba-gift-provider
-  main:
-    # Spring Boot 2.1 需要设定
-    allow-bean-definition-overriding: true
+    name: alibaba-web-consumer
   cloud:
     nacos:
       config:
@@ -14,9 +13,9 @@ spring:
         group: alibaba
         # 自定义扩展的dataId配置
         ext-config:
-          - data-id: alibaba-common.properties
-            group: alibaba
-            refresh: true
+        - data-id: alibaba-common.properties
+          group: alibaba
+          refresh: true
         # 多个应用间配置共享的 Data Id 只能共享默认GROUP DEFAULT_GROUP
         shared-dataids: alibaba-common.yaml
         refreshable-dataids: alibaba-common.yaml
@@ -28,17 +27,12 @@ spring:
           version: 0.1
           target-version: 0.1
 dubbo:
-  scan:
-    # dubbo 服务扫描基准包
-    base-packages: com.ciwei.gift.service
-  protocol:
-    # dubbo 协议
-    name: dubbo
-    # dubbo 协议端口（ -1 表示自增端口，从 20880 开始）
-    port: -1
   registry:
     # 挂载到 Spring Cloud 注册中心
     address: spring-cloud://114.67.104.142
+  # 用于服务消费方订阅服务提供方的应用名称的列表，若需订阅多应用，使用 "," 分割。 不推荐使用默认值为 "*"，它将订阅所有应用
+  cloud:
+    subscribed-services: alibaba-gift-provider,alibaba-user-provider,alibaba-live-provider
 #开启feign支持hystrix 新版本默认关闭 修改调用超时时间（默认是1秒就算超时）
 feign:
   hystrix:

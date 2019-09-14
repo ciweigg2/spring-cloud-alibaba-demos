@@ -2,8 +2,10 @@ package com.ciwei.live;
 
 import com.ciwei.ribbon.annotation.EnableServerVersionRule;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 
 /**
@@ -17,7 +19,9 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 public class AlibabaLiveSpringBootApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AlibabaLiveSpringBootApplication.class, args);
+        new SpringApplicationBuilder(AlibabaLiveSpringBootApplication.class)
+                .web(WebApplicationType.NONE)
+                .run(args);
     }
 
 }

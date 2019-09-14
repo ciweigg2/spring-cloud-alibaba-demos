@@ -1,6 +1,6 @@
 package com.ciwei.user.dto;
 
-import com.ciwei.user.feign.gift.model.AlibabaGift;
+import com.ciwei.gift.mybatis.model.AlibabaGift;
 import com.google.common.collect.Lists;
 import lombok.Data;
 

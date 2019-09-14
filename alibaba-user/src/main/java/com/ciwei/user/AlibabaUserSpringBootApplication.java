@@ -2,8 +2,10 @@ package com.ciwei.user;
 
 import com.ciwei.ribbon.annotation.EnableServerVersionRule;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
@@ -19,7 +21,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class AlibabaUserSpringBootApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AlibabaUserSpringBootApplication.class, args);
+        new SpringApplicationBuilder(AlibabaUserSpringBootApplication.class)
+                .web(WebApplicationType.NONE)
+                .run(args);
     }
 
 }

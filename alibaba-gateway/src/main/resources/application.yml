@@ -22,7 +22,7 @@ spring:
           filters:
             - StripPrefix=1
         - id: user_route
-          uri: lb://alibaba-user-provider
+          uri: lb://alibaba-web-consumer
           predicates:
             - Path=/api/user/**
           filters:
