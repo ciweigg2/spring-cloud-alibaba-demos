@@ -51,3 +51,6 @@ feign:
       default:
         connectTimeout: 2000
         readTimeout: 2000
+logging:
+  level:
+    root: debug

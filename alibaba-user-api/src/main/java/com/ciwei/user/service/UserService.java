@@ -1,6 +1,9 @@
 package com.ciwei.user.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ciwei.common.request.GetAlibabaUserRequest;
+import com.ciwei.common.utils.MybatisPlusPage;
 import com.ciwei.common.utils.ResponseMessage;
 import com.ciwei.user.dto.GetAlibabaUserDto;
 import com.ciwei.user.mybatis.model.AlibabaUser;
@@ -12,8 +15,10 @@ import com.ciwei.user.mybatis.model.AlibabaUser;
  **/
 public interface UserService {
 
-	boolean insertUser(AlibabaUser alibabaUser);
+    boolean insertUser(AlibabaUser alibabaUser);
 
-	ResponseMessage<GetAlibabaUserDto> getAlibabaUser(GetAlibabaUserRequest getAlibabaUserRequest);
+    GetAlibabaUserDto getAlibabaUser(GetAlibabaUserRequest getAlibabaUserRequest);
+
+    IPage<AlibabaUser> selectPage(MybatisPlusPage<AlibabaUser> mybatisPlusPage);
 
 }

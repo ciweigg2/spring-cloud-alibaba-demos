@@ -1,8 +1,11 @@
 package com.ciwei.user.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ciwei.common.request.GetAlibabaGiftByUserIdRequest;
 import com.ciwei.common.request.GetAlibabaUserRequest;
-import com.ciwei.common.utils.ResponseMessage;
+import com.ciwei.common.utils.MybatisPlusPage;
 import com.ciwei.common.utils.SnowflakeIdWorker;
 import com.ciwei.gift.mybatis.model.AlibabaGift;
 import com.ciwei.gift.service.GiftService;
@@ -67,7 +70,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseMessage<GetAlibabaUserDto> getAlibabaUser(GetAlibabaUserRequest getAlibabaUserRequest) {
+    public GetAlibabaUserDto getAlibabaUser(GetAlibabaUserRequest getAlibabaUserRequest) {
         //应该在service完成的 但是查询也不涉及事务 所以无所谓了
         GetAlibabaUserDto getAlibabaUserDto = new GetAlibabaUserDto();
         GetAlibabaGiftByUserIdRequest getAlibabaGiftByUserIdRequest = new GetAlibabaGiftByUserIdRequest();
@@ -81,7 +84,16 @@ public class UserServiceImpl implements UserService {
         getAlibabaUserDto.setUserId(alibabaUser.getUserId());
         getAlibabaUserDto.setUserName(alibabaUser.getUserName());
         getAlibabaUserDto.setCreateTime(alibabaUser.getCreateTime());
-        return ResponseMessage.success(getAlibabaUserDto);
+        return getAlibabaUserDto;
+    }
+
+    @Override
+    public IPage<AlibabaUser> selectPage(MybatisPlusPage<AlibabaUser> mybatisPlusPage) {
+        QueryWrapper<AlibabaUser> wrapper = new QueryWrapper();
+        //根据不为空的字段查询
+        wrapper.setEntity(mybatisPlusPage.getObject());
+        Page<AlibabaUser> page = new Page<>(mybatisPlusPage.getCurrent() ,mybatisPlusPage.getSize());
+        return alibabaUserService.page(page ,wrapper);
     }
 
 }

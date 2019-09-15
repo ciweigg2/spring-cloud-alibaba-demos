@@ -11,7 +11,7 @@
         <module>alibaba-gift</module>
         <module>alibaba-gift-api</module>
         <module>alibaba-common</module>
-        <module>alibaba-gateway</module>
+<!--        <module>alibaba-gateway</module>-->
         <module>alibaba-starter</module>
         <module>alibaba-seata</module>
         <module>alibaba-spring-cloud-wii</module>
