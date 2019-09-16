@@ -4,9 +4,11 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import io.seata.rm.datasource.DataSourceProxy;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +26,9 @@ import javax.sql.DataSource;
 @Configuration
 @MapperScan("com.ciwei.gift.*.mapper")
 public class MybatisPlusConfig {
+
+    @Autowired
+    private PaginationInterceptor paginationInterceptor;
 
     /**
      * @param sqlSessionFactory SqlSessionFactory
@@ -68,6 +73,8 @@ public class MybatisPlusConfig {
 
         SqlSessionFactory factory = null;
         try {
+            Interceptor[] plugins = {paginationInterceptor};
+            bean.setPlugins(plugins);
             factory = bean.getObject();
         } catch (Exception e) {
             throw new RuntimeException(e);
