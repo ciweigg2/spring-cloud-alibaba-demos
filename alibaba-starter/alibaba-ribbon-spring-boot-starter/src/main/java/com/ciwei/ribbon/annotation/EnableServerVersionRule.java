@@ -1,6 +1,5 @@
 package com.ciwei.ribbon.annotation;
 
-import com.ciwei.ribbon.WebAppConfigurer;
 import com.ciwei.ribbon.rule.RuleConfigure;
 import org.springframework.context.annotation.Import;
 
@@ -16,6 +15,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@Import({RuleConfigure.class , WebAppConfigurer.class})
+@Import({RuleConfigure.class})
 public @interface EnableServerVersionRule {
 }

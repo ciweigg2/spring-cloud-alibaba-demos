@@ -11,17 +11,19 @@ spring:
         group: alibaba
         # 自定义扩展的dataId配置
         ext-config:
-          - data-id: users.properties
+          - data-id: alibaba-common.properties
             group: alibaba
             refresh: true
-        # 多个应用间配置共享的 Data Id
+        # 多个应用间配置共享的 Data Id 只能共享默认GROUP DEFAULT_GROUP
         shared-dataids: alibaba-common.yaml
         refreshable-dataids: alibaba-common.yaml
       discovery:
         #nacos注册中心
         server-addr: 114.67.104.142:8848
+        cluster-name: Alibaba
         metadata:
-          version: ciwei
+          version: 0.1
+          target-version: 0.1
 #开启feign支持hystrix 新版本默认关闭 修改调用超时时间（默认是1秒就算超时）
 feign:
   hystrix:
