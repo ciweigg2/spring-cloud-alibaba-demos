@@ -29,6 +29,7 @@ SpringCloudDubbo架构开发规范
 * SpringBoot
 * SpringCloud
 * SpringCloudAlibaba
+* Dubbo
 * Nacos (注册中心兼配置中心)
 * Mysql
 * Seata
