@@ -35,6 +35,10 @@ SpringCloudDubbo架构开发规范
 * Seata
 * Wii (解决通过Spring Cloud调用非Spring Cloud项目 源码地址：https://gitee.com/itmuch/spring-cloud-wii)
 
+### 使用介绍
+
+可以依赖Spring Cloud Gateway做路由转发 也可以直接使用web作为入口
+
 ### 工具
 
 * Lombok
