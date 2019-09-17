@@ -14,13 +14,14 @@ SpringCloudDubbo架构开发规范
 
 | 模块  | 描述 |端口|
 |---|---|---|
-| alibaba-gateway  |  服务入口层       | 8080  |
-| alibaba-user      | 用户服务      | 8083  |
+| alibaba-web  |  服务入口层       | 8080  |
+| alibaba-user      | 用户服务      | 无  |
 | alibaba-user-api  | 用户服务Api   | 无    |
-| alibaba-gift      |  礼物服务     | 8081  |
+| alibaba-gift      |  礼物服务     | 无  |
 | alibaba-gift-api  | 礼物服务Api   | 无    |
-| alibaba-live      | 直播服务      | 8082  |
+| alibaba-live      | 直播服务      | 无  |
 | alibaba-live-api  |  直播服务Api  | 无    |
+| alibaba-spring-cloud-wii  |  异构服务调用  | 8070    |
 
 ### 使用介绍
 
