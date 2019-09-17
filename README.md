@@ -21,7 +21,7 @@ SpringCloudDubbo架构开发规范
 | alibaba-gift-api  | 礼物服务Api   | 无    |
 | alibaba-live      | 直播服务      | 无  |
 | alibaba-live-api  |  直播服务Api  | 无    |
-| alibaba-spring-cloud-wii  |  异构服务调用  | 8070    |
+| alibaba-spring-cloud-wii  |  异构服务调用  | 8070 |
 
 ### 框架技术
 
