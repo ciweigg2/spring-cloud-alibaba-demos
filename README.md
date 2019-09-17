@@ -21,6 +21,7 @@ SpringCloud架构开发规范
 | alibaba-gift-api  | 礼物服务Api   | 无    |
 | alibaba-live      | 直播服务      | 8082  |
 | alibaba-live-api  |  直播服务Api  | 无    |
+| alibaba-spring-cloud-wii  |  异构服务调用  | 8070 |
 
 ### 使用介绍
 
