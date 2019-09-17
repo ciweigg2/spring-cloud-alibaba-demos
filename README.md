@@ -23,12 +23,6 @@ SpringCloudDubbo架构开发规范
 | alibaba-live-api  |  直播服务Api  | 无    |
 | alibaba-spring-cloud-wii  |  异构服务调用  | 8070    |
 
-### 使用介绍
-
-本架构使用gateway作为服务统一入口 访问接口统一带上/api
-
-why gateway ? 生产全部服务应该是内网的 所以需要nginx将gateway挂载出去实现统一的入口
-
 ### 框架技术
 
 * MybatisPlus
