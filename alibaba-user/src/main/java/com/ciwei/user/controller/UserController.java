@@ -14,6 +14,7 @@ import com.ciwei.user.mybatis.model.AlibabaUser;
 import com.ciwei.user.mybatis.service.AlibabaUserService;
 import com.ciwei.user.service.UserService;
 import com.google.common.base.Preconditions;
+import com.kuding.anno.ExceptionListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/user")
 @Slf4j
+@ExceptionListener
 public class UserController {
 
     @Autowired

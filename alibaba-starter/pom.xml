@@ -15,6 +15,7 @@
     <modules>
         <module>alibaba-ribbon-spring-boot-starter</module>
         <module>alibaba-common-spring-boot-starter</module>
+        <module>alibaba-prometheus-spring-boot-starter</module>
     </modules>
 
 </project>

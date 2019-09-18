@@ -21,6 +21,7 @@ SpringCloud架构开发规范
 | alibaba-gift-api  | 礼物服务Api   | 无    |
 | alibaba-live      | 直播服务      | 8082  |
 | alibaba-live-api  |  直播服务Api  | 无    |
+| alibaba-spring-cloud-wii  |  异构服务调用  | 8070 |
 
 ### 使用介绍
 
@@ -246,3 +247,57 @@ isClusterVersion=false 使用默认的负载均衡规则(轮询)
 解决通过Spring Cloud调用非Spring Cloud项目
 
 源码地址：https://gitee.com/itmuch/spring-cloud-wii
+
+### 异常通知
+
+此功能为了排查生产的异常信息
+
+> 集成：
+
+prometheus-spring-boot-starter源码集成到alibaba-prometheus-spring-boot-starter
+
+> 源码地址：https://gitee.com/ITEater/prometheus-spring-boot-starter
+
+```xml
+<!--异常通知-->
+<dependency>
+    <groupId>com.ciwei</groupId>
+    <artifactId>alibaba-prometheus-spring-boot-starter</artifactId>
+</dependency>
+
+<!--邮件-->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-mail</artifactId>
+</dependency>
+```
+
+nacos配置(如果不配置默认是关闭的)：
+
+```yaml
+dataId: alibaba-common.yaml
+group: DEFAULT_GROUP
+配置内容：
+spring:
+  mail:
+    host: smtp.163.com
+    port: 25
+    username: 开启smtp权限的邮箱用户名
+    password: 密码(授权码)
+exceptionnotice:
+#  dinding:
+#    phone-num: 钉钉注册时的手机号
+#    web-hook: 设置的钉钉机器人的web-hook
+  email:
+    to: 给谁发
+    cc: 抄送谁
+    bcc: 秘密抄送谁
+# 追踪信息的包含的包名，配置之后只通知此包下的异常信息
+  included-trace-package: com.wei
+  notice-type: email
+  listen-type: web_mvc
+  open-notice: true
+  exclude-exceptions:
+  # 需要排除的异常通知，注意 这里是异常类的全路径，可多选
+    - com.ciwei.common.utils.BusinessException
+```
