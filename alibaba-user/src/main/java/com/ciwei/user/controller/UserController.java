@@ -93,7 +93,7 @@ public class UserController {
     /**
      * @author 如果没有你
      * @date 2019/8/29 17:03
-     * @description 测试lcn分布式事务
+     * @description 测试seata分布式事务
      * @param alibabaUser: 用户对象
      * @status 开发中
      * @menu 用户服务模块/用户相关接口
