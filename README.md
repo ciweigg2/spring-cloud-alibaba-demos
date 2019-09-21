@@ -234,6 +234,10 @@ isClusterVersion=false 使用默认的负载均衡规则(轮询)
 
 使用：[分布式事务seata](alibaba-seata/README.md)
 
+配置参考：
+
+[安装使用参考基于seata0.8.1nacos1.1.3](alibaba-seata/springcloud-nacos-seata.md)
+
 参考：
 
 * Spring Cloud Alibaba Seata 快速集成 https://github.com/seata/seata-samples/blob/master/doc/quick-integration-with-spring-cloud.md

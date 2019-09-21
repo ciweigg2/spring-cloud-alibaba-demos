@@ -70,6 +70,7 @@ sh nacos-config.sh 192.168.21.89
 # 启动seata-server(如果机器有多个ip可以使用-h指定ip地址)
 cd bin
 sh seata-server.sh -p 8091 -m file
+# sh seata-server.sh -p 8091 -h 外网ip(0.8.1开始支持外网) -m file
 ~~~
 
 * 如果部署生产Linux环境的话 有个小技巧 守护进程启动

@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		alibabaUserService.save(alibabaUser);
 		giftClient.insertGift(getAlibabaGiftByUserIdRequest);
 		//模拟异常
-//		int a = 1/0;
+		int a = 1/0;
 		return true;
 	}
 
