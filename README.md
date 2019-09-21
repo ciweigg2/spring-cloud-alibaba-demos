@@ -2,6 +2,13 @@
 
 > LOGO制作网站：http://www.uugai.com/
 
+本项目包含SpringCloud和SrpingCloudDubbo
+
+* master分支 SpringCloud
+* dubbo分支 SpringCloudDubbo
+* dev分支 SpringCloud最新开发分支
+* dev-lcn分支 废弃
+
 ### 开发规范
 
 SpringCloud架构开发规范
