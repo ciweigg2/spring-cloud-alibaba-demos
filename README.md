@@ -259,6 +259,8 @@ alibaba-rocketmq-transactional模块是集成项目前的一个例子提供参�
 
 多个input和output需要使用不同topic不然会出现一次消费所有监听这个topic的都会执行一次(会出现重复消费的问题)
 
+topic需要手动在界面上创建
+
 * demo为具体使用rocketmq简单的例子
 * demo2为配置多个生产者和消费者例子
 
