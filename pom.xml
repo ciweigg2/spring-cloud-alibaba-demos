@@ -15,6 +15,7 @@
         <module>alibaba-starter</module>
         <module>alibaba-seata</module>
         <module>alibaba-spring-cloud-wii</module>
+        <module>alibaba-rocketmq-transactional</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

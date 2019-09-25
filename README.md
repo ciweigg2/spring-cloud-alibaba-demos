@@ -255,6 +255,8 @@ isClusterVersion=false 使用默认的负载均衡规则(轮询)
 
 安装rocketmq参考：[安装rocketmq](ROCKETMQ.md)
 
+alibaba-rocketmq-transactional模块是集成项目前的一个例子提供参考学习
+
 ### Spring Cloud Wii
 
 异构微服务框架(可选) 主要解决使用微服务后调用以前项目的接口 需要也通过Nacos注册中心调用的
