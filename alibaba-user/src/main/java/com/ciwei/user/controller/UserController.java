@@ -7,16 +7,19 @@ import com.ciwei.common.request.GetAlibabaUserRequest;
 import com.ciwei.common.utils.MyIPage;
 import com.ciwei.common.utils.MybatisPlusPage;
 import com.ciwei.common.utils.ResponseMessage;
+import com.ciwei.common.utils.SnowflakeIdWorker;
 import com.ciwei.user.dto.GetAlibabaUserDto;
 import com.ciwei.user.feign.gift.GiftClient;
 import com.ciwei.user.feign.gift.model.AlibabaGift;
+import com.ciwei.user.listener.MySource;
 import com.ciwei.user.mybatis.model.AlibabaUser;
 import com.ciwei.user.mybatis.service.AlibabaUserService;
 import com.ciwei.user.service.UserService;
 import com.google.common.base.Preconditions;
-import com.kuding.anno.ExceptionListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.integration.support.MessageBuilder;
+import org.springframework.messaging.Message;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +36,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/user")
 @Slf4j
-@ExceptionListener
 public class UserController {
 
     @Autowired
@@ -44,6 +46,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SnowflakeIdWorker snowflakeIdWorker;
+
+    @Autowired
+    private MySource source;
 
     /**
      * @author 如果没有你
@@ -97,11 +105,32 @@ public class UserController {
      * @param alibabaUser: 用户对象
      * @status 开发中
      * @menu 用户服务模块/用户相关接口
-     * @return {@link ResponseMessage< MyIPage< AlibabaUser>>}
+     * @return {@link ResponseMessage< Boolean>>}
      **/
     @PostMapping(value = "/insertUser")
     public ResponseMessage<Boolean> insertUser(@RequestBody AlibabaUser alibabaUser) {
         return ResponseMessage.success(userService.insertUser(alibabaUser));
+    }
+
+    /**
+     * @author 如果没有你
+     * @date 2019/8/29 17:03
+     * @description 测试rocketmq分布式事务 注册新用户会获取系统赠送的礼物 异步事务测试
+     * @param alibabaUser: 用户对象
+     * @status 开发中
+     * @menu 用户服务模块/用户相关接口
+     * @return {@link ResponseMessage< Boolean>}
+     **/
+    @PostMapping(value = "/insertUserRocketMQ")
+    public ResponseMessage<String> insertUserRocketMQ(@RequestBody AlibabaUser alibabaUser) {
+        alibabaUser.setUserId(snowflakeIdWorker.nextId());
+        alibabaUser.setUserName("我爱G.E.M邓紫棋");
+        Message message = MessageBuilder
+                .withPayload(alibabaUser)
+                .setHeader("userId", alibabaUser.getUserId())
+                .build();
+        source.output().send(message);
+        return ResponseMessage.success("add user success");
     }
 
 }

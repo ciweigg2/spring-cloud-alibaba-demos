@@ -1,0 +1,26 @@
+spring:
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          # RocketMQ 服务器地址
+          name-server: 114.67.69.121:9876
+        bindings:
+          #重试失败直接进入死信队列(consumer.delayLevelWhenNextConsume: -1) consumer.orderly: true顺序消费false异步消费 默认false(如果为true重试次数将失效) 消费tags为tagStr的消息
+          #如果要消费指定tags发送消息的时候需要添加如下代码
+          #setHeader(MessageConst.PROPERTY_TAGS, "tagStr")
+          input: {consumer.delayLevelWhenNextConsume: -1} #RocketMQConsumerProperties类中配置
+      bindings:
+        # 消费者 多线程concurrency: 20 重试次数maxAttempts: 2
+        input: {destination: TransactionTopic, content-type: application/json, group: gift-tx-consumer-group, consumer.concurrency: 20, consumer.maxAttempts: 2}
+        #%DLQ%将替换成%RETRY%表示重试队列
+        inputDlq: {destination: '%DLQ%${spring.cloud.stream.bindings.input.group}', content-type: application/json, group: gift-dlq-group, consumer.concurrency: 20}
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          stream:
+            binder:
+              rocketmq: DEBUG

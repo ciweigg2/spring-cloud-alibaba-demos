@@ -10,6 +10,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.seata.core.exception.TransactionException;
 import io.seata.spring.annotation.GlobalTransactional;
 import io.seata.tm.api.GlobalTransactionContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  **/
 @Service
 @Transactional(rollbackFor = Exception.class)
+@Slf4j
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -53,6 +55,15 @@ public class UserServiceImpl implements UserService {
 		String xid = GlobalTransactionContext.getCurrentOrCreate().getXid();
 		GlobalTransactionContext.reload(xid).rollback();
 		return false;
+	}
+
+	@Override
+	public boolean insertUserRocketMQ(AlibabaUser alibabaUser) {
+		alibabaUserService.save(alibabaUser);
+		//模拟异常
+//		int a = 1/0;
+		log.info("新用户注册成功");
+		return true;
 	}
 
 }
