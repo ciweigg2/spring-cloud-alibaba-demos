@@ -237,7 +237,7 @@ isClusterVersion=false 使用默认的负载均衡规则(轮询)
 
 配置自己的服务版本和使用版本：version: 0.1 ，target-version: 0.1 当然也可以配置集群：cluster-name: Alibaba
 
-### 分布式事务seata
+### 分布式事务seata(同步场景)
 
 使用：[分布式事务seata](alibaba-seata/README.md)
 
@@ -250,6 +250,10 @@ isClusterVersion=false 使用默认的负载均衡规则(轮询)
 * Spring Cloud Alibaba Seata 快速集成 https://github.com/seata/seata-samples/blob/master/doc/quick-integration-with-spring-cloud.md
 
 * Spring Cloud Alibaba Nacos Seata 快速集成 https://github.com/seata/seata-samples/blob/master/springcloud-nacos-seata/README.md
+
+### 分布式事务rocketmq(异步场景)
+
+安装rocketmq参考：[安装rocketmq](ROCKETMQ.md)
 
 ### Spring Cloud Wii
 
