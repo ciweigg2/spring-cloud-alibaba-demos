@@ -1,10 +1,9 @@
-package com.rocketmq.demo.controller;
+package com.rocketmq.demo2.controller;
 
 import cn.hutool.core.util.RandomUtil;
 import com.ciwei.common.utils.SnowflakeIdWorker;
 import com.rocketmq.demo.config.MySource;
-import com.rocketmq.demo.config.RocketMqConfig;
-import com.rocketmq.demo.model.Order;
+import com.rocketmq.demo2.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
@@ -12,17 +11,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author Ciwei
+ * @author 马秀成
+ * @date 2019/9/25
+ * @jdk.version 1.8
+ * @desc 测试自定义消费
  */
 @RestController
-public class OrderController {
+public class OrderController1 {
 
     private final MySource source;
 
     private final SnowflakeIdWorker snowflakeIdWorker;
 
     @Autowired
-    public OrderController(MySource source, SnowflakeIdWorker snowflakeIdWorker) {
+    public OrderController1(MySource source, SnowflakeIdWorker snowflakeIdWorker) {
         this.source = source;
         this.snowflakeIdWorker = snowflakeIdWorker;
     }
@@ -30,7 +32,7 @@ public class OrderController {
     /**
      * 正常情况
      */
-    @GetMapping("/success")
+    @GetMapping("/success1")
     public String success() {
         Order order = new Order();
         order.setOrderId(snowflakeIdWorker.nextId());
@@ -41,14 +43,14 @@ public class OrderController {
                 .setHeader("orderId", order.getOrderId())
                 .build();
         //发送半消息
-        source.output().send(message);
+        source.output1().send(message);
         return "下单成功";
     }
 
     /**
      * 发送消息失败
      */
-    @GetMapping("/produceError")
+    @GetMapping("/produceError1")
     public String produceError() {
         Order order = new Order();
         order.setOrderId(snowflakeIdWorker.nextId());
@@ -60,14 +62,14 @@ public class OrderController {
                 .setHeader("produceError", "1")
                 .build();
         //发送半消息
-        source.output().send(message);
+        source.output1().send(message);
         return "发送消息失败";
     }
 
     /**
      * 消费消息失败
      */
-    @GetMapping("/consumeError")
+    @GetMapping("/consumeError1")
     public String consumeError() {
         Order order = new Order();
         order.setOrderId(snowflakeIdWorker.nextId());
@@ -79,7 +81,7 @@ public class OrderController {
                 .setHeader("consumeError", "1")
                 .build();
         //发送半消息
-        source.output().send(message);
+        source.output1().send(message);
         return "消费消息失败";
     }
 

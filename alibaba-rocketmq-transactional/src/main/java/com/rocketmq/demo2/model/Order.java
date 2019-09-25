@@ -1,7 +1,6 @@
-package com.rocketmq.demo.model;
+package com.rocketmq.demo2.model;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 

@@ -191,4 +191,4 @@ docker-compose up -d
 
 访问地址：http://ip:8080 程序连接端口：9867
 
-![呵呵](img/rocketmq.png)
+![呵呵](../img/rocketmq.png)

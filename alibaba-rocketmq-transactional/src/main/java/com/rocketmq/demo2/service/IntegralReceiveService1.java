@@ -1,7 +1,6 @@
-package com.rocketmq.demo.service.impl;
+package com.rocketmq.demo2.service;
 
 import com.rocketmq.demo.config.MySink;
-import com.rocketmq.demo.config.MySource;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Service;
@@ -12,9 +11,9 @@ import org.springframework.stereotype.Service;
  * @author Ciwei
  */
 @Service
-public class IntegralReceiveService {
+public class IntegralReceiveService1 {
 
-    @StreamListener(MySink.INPUT)
+    @StreamListener(MySink.INPUT1)
     public void receive(Message message) {
         //模拟消费异常
         String consumeError = (String)message.getHeaders().get("consumeError");
@@ -30,7 +29,7 @@ public class IntegralReceiveService {
     /**
      * 消费死信队列
      */
-    @StreamListener(MySink.INPUTDLQ)
+    @StreamListener(MySink.INPUTDLQ1)
     public void receiveDlq(Message message) {
         String orderId = (String)message.getHeaders().get("orderId");
         System.err.println("============消费死信队列消息，记录日志并预警：" + orderId);

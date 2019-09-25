@@ -253,9 +253,14 @@ isClusterVersion=false 使用默认的负载均衡规则(轮询)
 
 ### 分布式事务rocketmq(异步场景)
 
-安装rocketmq参考：[安装rocketmq](ROCKETMQ.md)
+安装rocketmq参考：[安装rocketmq](alibaba-rocketmq-transactional/ROCKETMQ.md)
 
 alibaba-rocketmq-transactional模块是集成项目前的一个例子提供参考学习
+
+多个input和output需要使用不同topic不然会出现一次消费所有监听这个topic的都会执行一次(会出现重复消费的问题)
+
+* demo为具体使用rocketmq简单的例子
+* demo2为配置多个生产者和消费者例子
 
 ### Spring Cloud Wii
 
