@@ -6,6 +6,7 @@ import com.ciwei.gift.mybatis.service.AlibabaGiftService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.ErrorMessage;
 import org.springframework.stereotype.Service;
@@ -46,7 +47,17 @@ public class GiftReceiveService {
     }
 
     /**
-     * 消费死信队列
+     * 消息消费失败的降级处理逻辑(异常捕获后不会控制台打印)
+     * TransactionTopic：消息通道对应的目标（destination，即：spring.cloud.stream.bindings.input.destination的配置）
+     * gift-tx-consumer-group：消息通道对应的消费组（group，即：spring.cloud.stream.bindings.input.group的配置）
+     */
+    @ServiceActivator(inputChannel = "TransactionTopic.gift-tx-consumer-group.errors")
+    public void error(Message<?> message) {
+        log.info("通知相关负责人并且记录礼物赠送失败的记录以后补发操作");
+    }
+
+    /**
+     * 消费死信队列(没有效果不知道为什么)
      */
     @StreamListener(MySink.INPUTDLQ)
     public void receiveDlq(Message message) {
@@ -55,13 +66,13 @@ public class GiftReceiveService {
     }
 
     /**
-     * 处理全局异常的方法
+     * 处理全局异常的方法(捕获以后会控制台还会打印异常信息 如果指定异常处理掉了 那么全局异常不会处理已经处理过的异常了)
      *
      * @param errorMessage 异常消息对象
      */
-    @StreamListener("errorChannel")
-    public void handleError(ErrorMessage errorMessage) {
-        log.error("发生异常. errorMessage = {}", errorMessage);
-    }
+//    @StreamListener("errorChannel")
+//    public void handleError(ErrorMessage errorMessage) {
+//        log.error("发生异常. errorMessage = {}", errorMessage);
+//    }
 
 }
