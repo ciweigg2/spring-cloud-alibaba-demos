@@ -54,7 +54,7 @@ public class GiftReceiveService {
     }
 
     /**
-     * 消费死信队列(没有效果不知道为什么)
+     * 消费死信队列(需要手动创建并且修改topic的perm为6界面可以修改)
      */
     @StreamListener(MySink.INPUTDLQ)
     public void receiveDlq(Message message) {
