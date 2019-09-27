@@ -77,6 +77,12 @@
             <groupId>com.nepxion</groupId>
             <artifactId>banner</artifactId>
         </dependency>
+
+        <!--解析xml帮助类-->
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

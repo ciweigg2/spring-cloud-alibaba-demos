@@ -45,6 +45,7 @@
         <fastjson.version>1.2.59</fastjson.version>
         <banner.versio>1.0.2</banner.versio>
         <spring-cloud-wii.version>0.0.1-SNAPSHOT</spring-cloud-wii.version>
+        <dom4j.version>2.1.1</dom4j.version>
     </properties>
 
     <dependencyManagement>
@@ -145,6 +146,12 @@
                 <groupId>com.nepxion</groupId>
                 <artifactId>banner</artifactId>
                 <version>${banner.versio}</version>
+            </dependency>
+            <!--解析xml帮助类-->
+            <dependency>
+                <groupId>org.dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>${dom4j.version}</version>
             </dependency>
             <!--Spring Cloud Wii与异构微服务框架-->
             <dependency>
