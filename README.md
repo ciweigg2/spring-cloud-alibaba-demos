@@ -1,4 +1,4 @@
-![](img/logo.jpg)
+![](img/springcloudciwei.png)
 
 > LOGO制作网站：http://www.uugai.com/
 
