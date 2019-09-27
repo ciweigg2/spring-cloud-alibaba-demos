@@ -255,7 +255,8 @@ isClusterVersion=false 使用默认的负载均衡规则(轮询)
 
 #### 安装
 
-安装rocketmq参考：[安装rocketmq](alibaba-rocketmq-transactional/ROCKETMQ.md)
+* docker安装rocketmq参考：[安装rocketmq](alibaba-rocketmq-transactional/ROCKETMQ.md)
+* 编译文件安装rocketmq参考：[编译文件安装](https://www.cnblogs.com/ruguomeiyouni/p/11599426.html)
 
 #### 死信队列
 
