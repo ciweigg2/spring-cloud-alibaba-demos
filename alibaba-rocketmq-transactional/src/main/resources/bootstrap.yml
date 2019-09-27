@@ -30,7 +30,7 @@ spring:
         input: {destination: TransactionTopic, content-type: application/json, group: order-tx-consume-group, consumer.concurrency: 20, consumer.maxAttempts: 2}
         input1: {destination: TransactionTopic1, content-type: application/json, group: order-tx-consume-group1, consumer.concurrency: 20, consumer.maxAttempts: 2}
 #        input2: {destination: TransactionTopic2, content-type: application/json, group: order-tx-consume-group2, consumer.concurrency: 20, consumer.maxAttempts: 2}
-        #%DLQ%将替换成%RETRY%表示重试队列
+        #%DLQ%消费死信队列 死信队列需要手动在界面创建将perm设置成6 自动创建默认为2无法消费消息
         inputDlq: {destination: '%DLQ%${spring.cloud.stream.bindings.input.group}', content-type: application/json, group: order-dlq-group, consumer.concurrency: 20}
         inputDlq1: {destination: '%DLQ%${spring.cloud.stream.bindings.input1.group}', content-type: application/json, group: order-dlq-group1, consumer.concurrency: 20}
 #        inputDlq2: {destination: '%DLQ%${spring.cloud.stream.bindings.input2.group}', content-type: application/json, group: order-dlq-group2, consumer.concurrency: 20}
