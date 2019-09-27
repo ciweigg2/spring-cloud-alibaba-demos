@@ -11,8 +11,10 @@ spring:
           #setHeader(MessageConst.PROPERTY_TAGS, "tagStr")
           input: {consumer.delayLevelWhenNextConsume: -1} #RocketMQConsumerProperties类中配置
       bindings:
-        # 消费者 多线程concurrency: 20 重试次数maxAttempts: 2
-        input: {destination: TransactionTopic, content-type: application/json, group: gift-tx-consumer-group, consumer.concurrency: 20, consumer.maxAttempts: 2}
+        # 消费者 多线程concurrency: 20 重试次数maxAttempts: 5
+        # consumer.backOffInitialInterval: 500 ,consumer.backOffMultiplier: 3 ,consumer.backOffMaxInterval: 8000 下面的配置定义了重试的初始时间间隔是500豪秒，每次翻3倍，最大的间隔时间是8秒，即第一次的重试间隔是500毫秒，第二次是1500毫秒，第三次是4500毫秒，第四次以后是8000毫秒
+        # consumer.tags=tag0||tag1 如果我们的某个Binding只希望接收某些Tag的消息 consumer.tags属性来指定期望接收的Tag 多个Tag之间通过双竖线分隔
+        input: {destination: TransactionTopic, content-type: application/json, group: gift-tx-consumer-group, consumer.concurrency: 20, consumer.maxAttempts: 5 ,consumer.backOffInitialInterval: 500 ,consumer.backOffMultiplier: 3 ,consumer.backOffMaxInterval: 8000}
         #%DLQ%将替换成%RETRY%表示重试队列
         inputDlq: {destination: '%DLQ%${spring.cloud.stream.bindings.input.group}', content-type: application/json, group: gift-dlq-group, consumer.concurrency: 20}
 
