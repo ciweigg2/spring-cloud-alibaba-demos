@@ -3,8 +3,23 @@
 > 新建rocketmq目录
 
 ```
+cd /root
 mkdir rocketmq
 cd rocketmq
+```
+
+* 注意：启动 RocketMQ Server + Broker + Console 至少需要 2G 内存
+
+> 创建必要的挂载目录
+
+```
+mkdir -p /root/rocketmq/data/logs
+mkdir -p /root/rocketmq/data/store
+mkdir -p /root/rocketmq/data/brokerconf
+mkdir -p /root/rocketmq/data/rmqnamesrv/logs
+mkdir -p /root/rocketmq/data/rmqnamesrv/store
+cd /root/rocketmq
+chmod -R 777 data/
 ```
 
 > 新建docker-compose.yml
@@ -13,33 +28,31 @@ cd rocketmq
 vi docker-compose.yml
 ```
 
-* 注意：启动 RocketMQ Server + Broker + Console 至少需要 2G 内存
-
 ```yaml
 version: '3.5'
 services:
   rmqnamesrv:
-    image: foxiswho/rocketmq:server
+    image: foxiswho/rocketmq:server-4.5.2
     container_name: rmqnamesrv
     ports:
       - 9876:9876
     volumes:
-      - ./data/logs:/opt/logs
-      - ./data/store:/opt/store
+      - ./data/rmqnamesrv/logs:/home/rocketmq/logs
+      - ./data/rmqnamesrv/store:/home/rocketmq/store
     networks:
         rmq:
           aliases:
             - rmqnamesrv
 
   rmqbroker:
-    image: foxiswho/rocketmq:broker
+    image: foxiswho/rocketmq:broker-4.5.2
     container_name: rmqbroker
     ports:
       - 10909:10909
       - 10911:10911
     volumes:
-      - ./data/logs:/opt/logs
-      - ./data/store:/opt/store
+      - ./data/logs:/home/rocketmq/logs
+      - ./data/store:/home/rocketmq/store
       - ./data/brokerconf/broker.conf:/etc/rocketmq/broker.conf
     environment:
         NAMESRV_ADDR: "rmqnamesrv:9876"
@@ -57,7 +70,7 @@ services:
     image: styletang/rocketmq-console-ng
     container_name: rmqconsole
     ports:
-      - 8080:8080
+      - 8180:8080
     environment:
         JAVA_OPTS: "-Drocketmq.namesrv.addr=rmqnamesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
     depends_on:
@@ -76,8 +89,7 @@ networks:
 > 新建broker.conf
 
 ```
-mkdir -p ./data/brokerconf/
-vi ./data/brokerconf/broker.conf
+vi /root/rocketmq/data/brokerconf/broker.conf
 ```
 
 * RocketMQ Broker 需要一个配置文件，按照上面的 Compose 配置，我们需要在 ./data/brokerconf/ 目录下创建一个名为 broker.conf 的配置文件，内容如下：
@@ -189,6 +201,6 @@ flushDiskType=ASYNC_FLUSH
 docker-compose up -d
 ```
 
-访问地址：http://ip:8080 程序连接端口：9867
+访问地址：http://ip:8180 程序连接端口：9867
 
 ![呵呵](../img/rocketmq.png)

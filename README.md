@@ -255,11 +255,15 @@ isClusterVersion=false 使用默认的负载均衡规则(轮询)
 
 安装rocketmq参考：[安装rocketmq](alibaba-rocketmq-transactional/ROCKETMQ.md)
 
+死信队列需要手动创建 并且perm修改成6 如果为2的话代码中无法消费 ![新增](img/dlq.png)
+
+代码中消费以%DLQ%开头的topic：%DLQ%${spring.cloud.stream.bindings.input.group}
+
 alibaba-rocketmq-transactional模块是集成项目前的一个例子提供参考学习
 
 多个input和output需要使用不同topic不然会出现一次消费所有监听这个topic的都会执行一次(会出现重复消费的问题)
 
-topic需要手动在界面上创建
+topic需要手动在界面上创建或者配置文件开启自动创建autoCreateTopicEnable=true
 
 * demo为具体使用rocketmq简单的例子
 * demo2为配置多个生产者和消费者例子
