@@ -1,4 +1,4 @@
-package com.ciwei.gift.listener;
+package com.ciwei.live.listener;
 
 import com.alibaba.fastjson.support.spring.messaging.MappingFastJsonMessageConverter;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
  *
  * @author Ciwei
  */
-@EnableBinding({MySource.class, MySink.class})
+@EnableBinding({MySink.class})
 public class RocketMqConfig {
 
     /**

@@ -1,5 +1,6 @@
 package com.ciwei.gift.listener;
 
+import com.alibaba.fastjson.JSON;
 import com.ciwei.common.utils.SnowflakeIdWorker;
 import com.ciwei.gift.mybatis.model.AlibabaGift;
 import com.ciwei.gift.mybatis.service.AlibabaGiftService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,14 +28,15 @@ public class GiftReceiveService {
     private AlibabaGiftService alibabaGiftService;
 
     @StreamListener(MySink.INPUT)
-    public void receive(Message message) {
-        try {
-            int a = 1 / 0;
-        } catch (Exception e) {
-            log.error("============Exception：礼物服务器宕机了 ,进入通知逻辑 ，记录失败记录");
-            //模拟用户插入数据后服务器宕机了，没有commit事务消息
-            throw new RuntimeException("============礼物服务器宕机了");
-        }
+    @SendTo(MySource.OUTPUTLIVE) //将返回结果继续往直播服务消费创建直播服务
+    public String receive(Message message) {
+//        try {
+//            int a = 1 / 0;
+//        } catch (Exception e) {
+//            log.error("============Exception：礼物服务器宕机了 ,进入通知逻辑 ，记录失败记录");
+//            //模拟用户插入数据后服务器宕机了，没有commit事务消息
+//            throw new RuntimeException("============礼物服务器宕机了");
+//        }
         Long userId = Long.valueOf((String) message.getHeaders().get("userId"));
         AlibabaGift alibabaGift = new AlibabaGift();
         alibabaGift.setUserId(userId);
@@ -41,6 +44,7 @@ public class GiftReceiveService {
         alibabaGift.setGiftName("我爱G.E.M邓紫棋");
         alibabaGiftService.save(alibabaGift);
         log.info("新用户礼物赠送成功");
+        return JSON.toJSONString(alibabaGift);
     }
 
     /**

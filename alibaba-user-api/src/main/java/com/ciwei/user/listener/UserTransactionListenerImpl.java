@@ -16,7 +16,7 @@ import org.springframework.messaging.Message;
  */
 @RocketMQTransactionListener(txProducerGroup = "user-tx-provider-group", corePoolSize = 5, maximumPoolSize = 10)
 @Slf4j
-public class UserransactionListenerImpl implements RocketMQLocalTransactionListener {
+public class UserTransactionListenerImpl implements RocketMQLocalTransactionListener {
 
     @Autowired
     private UserService userService;
