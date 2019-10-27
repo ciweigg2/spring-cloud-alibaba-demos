@@ -1,3 +1,12 @@
+<p align="center"><a href="https://ciweigg2.github.io" target="_blank" rel="noopener noreferrer"><img width="100" src="https://ciwei3.cn-sh2.ufileos.com/233.jpg" alt="Blog logo"></a></p>
+
+<p align="center">
+  <a href="https://github.com/shw2018/hexo-blog-fly/network"><img src="https://img.shields.io/github/forks/ciweigg2/spring-cloud-alibaba-demos.svg" alt="GitHub forks"></a>
+  <a href="https://github.com/shw2018/hexo-blog-fly/stargazers"><img src="https://img.shields.io/github/stars/ciweigg2/spring-cloud-alibaba-demos.svg" alt="GitHub stars"></a>
+  <br>
+  
+<p align="center"> Hey，I really miss you</p>
+
 ![](img/springcloudciwei.png)
 
 > LOGO制作网站：http://www.uugai.com/
