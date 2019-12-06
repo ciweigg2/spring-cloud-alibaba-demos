@@ -11,4 +11,5 @@ public interface UserService {
 
 	boolean insertUser(AlibabaUser alibabaUser);
 
+	boolean insertUserRocketMQ(AlibabaUser alibabaUser);
 }

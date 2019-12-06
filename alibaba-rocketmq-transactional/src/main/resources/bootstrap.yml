@@ -1,0 +1,45 @@
+server:
+  port: 11002
+
+spring:
+  application:
+    name: rocketmq-tx
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          # RocketMQ 服务器地址
+          name-server: 114.67.69.121:9876
+        bindings:
+          #开启事务消息transactional: true
+          output: {producer.group: order-tx-produce-group ,producer.transactional: true}
+          output1: {producer.group: order-tx-produce-group1 ,producer.transactional: true}
+#          output2: {producer.group: order-tx-produce-group2 ,producer.transactional: true}
+          #重试失败直接进入死信队列 consumer.orderly: true顺序消费false异步消费 消费tags为tagStr的消息
+          #如果要消费指定tags发送消息的时候需要添加如下代码
+          #setHeader(MessageConst.PROPERTY_TAGS, "tagStr")
+          input: {consumer.orderly: false ,consumer.delayLevelWhenNextConsume: -1}
+          input1: {consumer.orderly: true ,consumer.delayLevelWhenNextConsume: -1}
+#          input2: {consumer.delayLevelWhenNextConsume: -1}
+      bindings:
+        # 生产者
+        output: {destination: TransactionTopic, content-type: application/json}
+        output1: {destination: TransactionTopic1, content-type: application/json}
+#        output2: {destination: TransactionTopic2, content-type: application/json}
+        # 消费者 多线程concurrency: 20 重试次数maxAttempts: 2
+        input: {destination: TransactionTopic, content-type: application/json, group: order-tx-consume-group, consumer.concurrency: 20, consumer.maxAttempts: 2}
+        input1: {destination: TransactionTopic1, content-type: application/json, group: order-tx-consume-group1, consumer.concurrency: 20, consumer.maxAttempts: 2}
+#        input2: {destination: TransactionTopic2, content-type: application/json, group: order-tx-consume-group2, consumer.concurrency: 20, consumer.maxAttempts: 2}
+        #%DLQ%消费死信队列 死信队列需要手动在界面创建将perm设置成6 自动创建默认为2无法消费消息
+        inputDlq: {destination: '%DLQ%${spring.cloud.stream.bindings.input.group}', content-type: application/json, group: order-dlq-group, consumer.concurrency: 20}
+        inputDlq1: {destination: '%DLQ%${spring.cloud.stream.bindings.input1.group}', content-type: application/json, group: order-dlq-group1, consumer.concurrency: 20}
+#        inputDlq2: {destination: '%DLQ%${spring.cloud.stream.bindings.input2.group}', content-type: application/json, group: order-dlq-group2, consumer.concurrency: 20}
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          stream:
+            binder:
+              rocketmq: DEBUG

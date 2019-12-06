@@ -1,0 +1,73 @@
+spring:
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          # RocketMQ 服务器地址
+          name-server: 114.67.69.121:9876
+        bindings:
+          #重试失败直接进入死信队列(consumer.delayLevelWhenNextConsume: -1) consumer.orderly: true顺序消费false异步消费 默认false 消费tags为tagStr的消息 多个使用||分隔呀
+          #重点讲一下consumer.orderly: false和true的消费模型
+          #consumer.orderly: false
+          #死信队列消费: 代码中使用死信队列重试达到一定次数后会进入死信队列
+          #异常捕获消费: 代码中使用异常捕获消费重试达到一定次数后会进入异常消费的逻辑消费此消息
+          #consumer.orderly: true
+          #死信队列消费: 代码中使用死信队列重试达到一定次数后不会进入死信队列会一直消费直到方法不抛出异常为止
+          #异常捕获消费: 代码中使用异常捕获消费重试达到一定次数后会进入异常消费的逻辑消费此消息
+          #如果要消费指定tags发送消息的时候需要添加如下代码
+          #setHeader(MessageConst.PROPERTY_TAGS, "tagStr")
+          input: {consumer.orderly: false ,consumer.delayLevelWhenNextConsume: -1} #RocketMQConsumerProperties类中配置
+          #开启事务消息transactional: true
+          outputLive: {producer.group: live-tx-provider-group ,producer.transactional: true}
+      bindings:
+        # 消费者 多线程concurrency: 20 重试次数maxAttempts: 5
+        # consumer.backOffInitialInterval: 500 ,consumer.backOffMultiplier: 3 ,consumer.backOffMaxInterval: 8000 下面的配置定义了重试的初始时间间隔是500豪秒，每次翻3倍，最大的间隔时间是8秒，即第一次的重试间隔是500毫秒，第二次是1500毫秒，第三次是4500毫秒，第四次以后是8000毫秒
+        # consumer.tags=tag0||tag1 如果我们的某个Binding只希望接收某些Tag的消息 consumer.tags属性来指定期望接收的Tag 多个Tag之间通过双竖线分隔
+        input: {destination: TransactionTopic, content-type: application/json, group: gift-tx-consumer-group, consumer.concurrency: 20, consumer.maxAttempts: 5 ,consumer.backOffInitialInterval: 500 ,consumer.backOffMultiplier: 3 ,consumer.backOffMaxInterval: 8000}
+        #%DLQ%消费死信队列 死信队列需要手动在界面创建将perm设置成6 自动创建默认为2无法消费消息
+        inputDlq: {destination: '%DLQ%${spring.cloud.stream.bindings.input.group}', content-type: application/json, group: gift-dlq-group, consumer.concurrency: 20}
+        # 生产者
+        outputLive: {destination: TransactionTopicLive, content-type: application/json}
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          stream:
+            binder:
+              rocketmq: DEBUG
+
+alibaba:
+  name: ciwei
+  other:
+    id: 100
+    version: 1.0.1
+  server:
+    - 127.0.0.1
+    - 127.0.0.2
+    - 127.0.0.3
+  list:
+    - 111
+    - 222
+    - 333
+  map:
+    key1: value1
+    key2: value2
+    key3: value3
+  modules:
+    key1:
+      name: modules-name-1
+      version: modules-version-1
+      owner: modules-owner-1
+    key2:
+      name: modules-name-2
+      version: modules-version-2
+      owner: modules-owner-2
+  modulesList:
+    - name: modules-name-3
+      version: modules-version-3
+      owner: modules-owner-3
+    - name: modules-name-4
+      version: modules-version-4
+      owner: modules-owner-4

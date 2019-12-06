@@ -7,7 +7,7 @@
   
 <p align="center"> Hey，I really miss you</p>
 
-![](img/logo.jpg)
+![](img/springcloudciwei.png)
 
 > LOGO制作网站：http://www.uugai.com/
 
@@ -246,19 +246,38 @@ isClusterVersion=false 使用默认的负载均衡规则(轮询)
 
 配置自己的服务版本和使用版本：version: 0.1 ，target-version: 0.1 当然也可以配置集群：cluster-name: Alibaba
 
-### 分布式事务seata
+### 分布式事务seata(同步场景)
 
 使用：[分布式事务seata](alibaba-seata/README.md)
 
-配置参考：
-
-[安装使用参考基于seata0.8.1nacos1.1.3](alibaba-seata/springcloud-nacos-seata.md)
+配置参考：[安装使用参考基于seata0.8.1nacos1.1.3](alibaba-seata/springcloud-nacos-seata.md)
 
 参考：
 
 * Spring Cloud Alibaba Seata 快速集成 https://github.com/seata/seata-samples/blob/master/doc/quick-integration-with-spring-cloud.md
 
 * Spring Cloud Alibaba Nacos Seata 快速集成 https://github.com/seata/seata-samples/blob/master/springcloud-nacos-seata/README.md
+
+### 分布式事务rocketmq(异步场景)
+
+#### 安装
+
+* docker安装rocketmq参考：[安装rocketmq](alibaba-rocketmq-transactional/ROCKETMQ.md)
+* 编译文件安装rocketmq参考：[编译文件安装](https://www.cnblogs.com/ruguomeiyouni/p/11599426.html)
+
+#### 死信队列
+
+1. 死信队列需要手动创建 并且perm修改成6 如果为2的话代码中无法消费 ![新增](img/dlq.png)
+2. 代码中消费以%DLQ%开头的topic：%DLQ%${spring.cloud.stream.bindings.input.group}
+
+#### 例子
+
+1. alibaba-rocketmq-transactional模块是集成项目前的一个例子提供参考学习
+2. 多个input和output需要使用不同topic不然会出现一次消费所有监听这个topic的都会执行一次(会出现重复消费的问题)
+3. topic需要手动在界面上创建或者配置文件开启自动创建autoCreateTopicEnable=true
+
+* demo为具体使用rocketmq简单的例子
+* demo2为配置多个生产者和消费者例子
 
 ### Spring Cloud Wii
 

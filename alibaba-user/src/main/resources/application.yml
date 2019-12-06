@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          # RocketMQ 服务器地址
+          name-server: 114.67.69.121:9876
+        bindings:
+          #开启事务消息transactional: true
+          output: {producer.group: user-tx-provider-group ,producer.transactional: true}
+      bindings:
+        # 生产者
+        output: {destination: TransactionTopic, content-type: application/json}
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          stream:
+            binder:
+              rocketmq: DEBUG
