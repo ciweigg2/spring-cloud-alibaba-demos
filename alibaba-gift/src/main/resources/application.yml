@@ -4,7 +4,7 @@ spring:
       rocketmq:
         binder:
           # RocketMQ 服务器地址
-          name-server: 114.67.69.121:9876
+          name-server: 127.0.0.1:9876
         bindings:
           #重试失败直接进入死信队列(consumer.delayLevelWhenNextConsume: -1) consumer.orderly: true顺序消费false异步消费 默认false 消费tags为tagStr的消息 多个使用||分隔呀
           #重点讲一下consumer.orderly: false和true的消费模型
