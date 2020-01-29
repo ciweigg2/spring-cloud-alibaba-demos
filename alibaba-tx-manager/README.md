@@ -82,7 +82,7 @@ docker run -d --privileged=true -p 6379:6379 -v /usr/redis/redis.conf:/etc/redis
 
 ```properties
 # lcn事务地址
-tx-lcn.client.manager-address=114.67.104.142:8070
+tx-lcn.client.manager-address=127.0.0.1:8070
 # 是否启动LCN负载均衡策略(优化选项，开启与否，功能不受影响) 为什么这边关闭因为我实现了版本路由所以冲突了
 tx-lcn.ribbon.loadbalancer.dtx.enabled=false
 # 微服务集群且用到 LCN事务模式时，为保证性能请开启TX-LCN重写的负载策略
