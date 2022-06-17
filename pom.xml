@@ -42,7 +42,7 @@
         <transmittable-thread-local.version>2.11.0</transmittable-thread-local.version>
         <spring-cloud-starter-hystrix.version>1.4.7.RELEASE</spring-cloud-starter-hystrix.version>
         <guava.version>28.1-jre</guava.version>
-        <fastjson.version>1.2.59</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <banner.versio>1.0.2</banner.versio>
         <spring-cloud-wii.version>0.0.1-SNAPSHOT</spring-cloud-wii.version>
         <dom4j.version>2.1.1</dom4j.version>
